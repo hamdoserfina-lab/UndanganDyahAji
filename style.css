@@ -1,0 +1,1345 @@
+/* =================================== */
+/* Reset & Tema "Dark Mode Glassmorphism - GOLD" */
+/* =================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Tema Gold */
+    --primary-color: #c99447;
+    --secondary-color: #e6b973;
+    --gradient: linear-gradient(
+        135deg,
+        var(--primary-color),
+        var(--secondary-color)
+    );
+
+    /* Teks terang */
+    --text-color: #f0f0f0;
+    --text-light: #cccccc;
+    --text-on-dark: #f0f0f0;
+    --white: #ffffff;
+
+    /* Font (dari Kode 2 HTML) */
+    --font-heading: "Josefin Sans", sans-serif;
+    --font-body: "Josefin Sans", sans-serif;
+    --font-script: "Dancing Script", cursive;
+
+    /* Properti Lain */
+    --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background: transparent;
+    color: var(--text-color);
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--white);
+}
+
+/* =================================== */
+/* Efek Glassmorphism (Kaca Gelap) */
+/* =================================== */
+.glass-effect {
+    background: rgba(0, 0, 0, 0.25); /* MODIFIKASI: Dibuat lebih transparan */
+    backdrop-filter: blur(5px); /* MODIFIKASI: Blur dikurangi */
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 15px;
+    border: 1px solid rgba(201, 148, 71, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+}
+.glass-effect:hover {
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+}
+
+/* =================================== */
+/* Cover Section */
+/* =================================== */
+.cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: var(--transition);
+    overflow: hidden;
+}
+.parallax-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+.parallax-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+.cover-bg {
+    background-image: url("assets/cover-bg.jpg");
+    z-index: 1;
+}
+.cover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 4;
+}
+
+.cover-content {
+    text-align: center;
+    color: var(--white);
+    padding: 2rem;
+    position: relative;
+    z-index: 5;
+    max-width: 90%;
+}
+
+/* MODIFIKASI: Menambah font-weight dan text-shadow */
+.cover-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.5rem;
+    font-weight: 400; /* Ditebalkan dari 300 */
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(30px);
+    color: var(--secondary-color); /* Gold Muda */
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* KUNCI KONTRAS */
+}
+.cover-title {
+    font-family: var(--font-script);
+    font-size: 6rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    color: var(--white);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+}
+.cover-date {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    opacity: 0;
+    transform: translateY(30px);
+    color: var(--secondary-color); /* Gold Muda */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* KUNCI KONTRAS */
+}
+
+.cover-invitation {
+    margin-bottom: 3rem;
+    opacity: 0;
+    transform: translateY(30px);
+    padding: 0;
+}
+.cover-invitation p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--text-on-dark);
+    font-weight: 400; /* Ditebalkan dari 300 */
+    line-height: 1.6;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* KUNCI KONTRAS */
+}
+.guest-name {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin: 1.5rem 0;
+    color: var(--secondary-color); /* MODIFIKASI: Ganti ke Gold */
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* KUNCI KONTRAS */
+}
+
+/* MODIFIKASI: Tombol Buka Undangan dibalik */
+.open-invitation-btn {
+    background: var(--gradient); /* MODIFIKASI: Ganti ke Gold */
+    color: var(--white); /* MODIFIKASI: Ganti ke Putih */
+    border: none;
+    padding: 1.2rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    opacity: 0;
+    transform: translateY(30px);
+    z-index: 10;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+.open-invitation-btn:hover {
+    background: var(--gradient); /* MODIFIKASI: Tetap Gold */
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.1); /* MODIFIKASI: Efek hover baru */
+}
+.open-invitation-btn i {
+    margin-right: 0.8rem;
+    font-size: 1.1rem;
+}
+
+/* =================================== */
+/* Main Content Wrap */
+/* =================================== */
+.main-content {
+    display: none;
+    opacity: 0;
+    position: relative;
+    z-index: 2;
+}
+
+/* =================================== */
+/* Hero Section */
+/* =================================== */
+.hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    perspective: 1000px;
+}
+.hero-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+.hero-bg-carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.hero-bg-carousel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+.bg-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    transform: scale(1.1);
+    filter: grayscale(0.3);
+}
+.bg-slide.active {
+    opacity: 1;
+    transform: scale(1);
+}
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 0 2rem;
+}
+
+/* ========================================== */
+/* Layout "Klasik Pembatas" (MODIFIKASI KONTRAS) */
+/* ========================================== */
+
+/* MODIFIKASI: Menambahkan efek Kaca di Hero agar lebih menarik */
+.hero-text-elegant {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 800px;
+    padding: 3rem 2rem;
+    transition: transform 0.1s ease-out;
+
+    /* Menggunakan .glass-effect dari tema */
+    background: rgba(0, 0, 0, 0.25); /* MODIFIKASI: Dibuat lebih transparan */
+    backdrop-filter: blur(5px); /* MODIFIKASI: Blur dikurangi */
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 15px;
+    border: 1px solid rgba(201, 148, 71, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+.hero-subtitle-elegant {
+    font-family: var(--font-body);
+    font-size: 1.5rem;
+    font-weight: 400; /* Ditebalkan dari 300 */
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+}
+
+/* MODIFIKASI: Layout Nama diubah jadi Vertikal */
+.hero-names-new {
+    display: flex;
+    flex-direction: column; /* <-- MODIFIKASI INI */
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* <-- Gap dikurangi untuk vertikal */
+    position: relative;
+    padding-top: 1.5rem;
+    margin: 0.5rem 0;
+}
+.hero-names-new::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 1px;
+    background: var(--secondary-color);
+    opacity: 0.5;
+    /* Bayangan untuk garis agar terlihat di bg terang */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.hero-name-new {
+    font-family: var(--font-script);
+    font-size: 6rem;
+    font-weight: 700;
+    color: var(--white);
+    /* Shadow Gold + Shadow Kontras */
+    text-shadow:
+        0 0 15px rgba(201, 148, 71, 0.7),
+        0 2px 4px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 2;
+}
+.hero-ampersand-new {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    color: var(--secondary-color);
+    position: static;
+    z-index: 1;
+    font-size: 3rem;
+    transform: none;
+    opacity: 1;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+}
+
+.hero-date-elegant {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--white);
+    position: relative;
+    padding-bottom: 1.5rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+}
+.hero-date-elegant::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 1px;
+    background: var(--secondary-color);
+    opacity: 0.5;
+    /* Bayangan untuk garis agar terlihat di bg terang */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.date-separator {
+    width: 2px;
+    height: 25px;
+    background: rgba(201, 148, 71, 0.3);
+    transform: rotate(20deg);
+}
+
+.countdown-new {
+    margin: 1.5rem 0 0 0;
+}
+/* MODIFIKASI: Countdown dibuat 1 baris (flex-wrap dihapus) */
+.countdown-timer-new {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+/* MODIFIKASI: Countdown (min-width dihapus agar bisa 'menciut') */
+.countdown-item-new {
+    background: transparent;
+    padding: 0.5rem;
+    border: none;
+    transition: var(--transition);
+    position: relative;
+}
+/* MODIFIKASI: Font countdown dikecilkan */
+.countdown-number-new {
+    font-size: 2rem; 
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-body);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+}
+/* MODIFIKASI: Font countdown dikecilkan */
+.countdown-label-new {
+    font-size: 0.7rem;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+}
+
+/* ================================== */
+/* AKHIR MODIFIKASI */
+/* ================================== */
+
+/* =================================== */
+/* Navigasi Carousel */
+/* =================================== */
+.bg-carousel-prev,
+.bg-carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: var(--transition);
+    z-index: 4;
+    text-shadow: none; /* Pastikan icon navigasi bersih */
+}
+.bg-carousel-prev:hover,
+.bg-carousel-next:hover {
+    background: var(--white);
+    color: var(--primary-color);
+}
+.bg-carousel-prev {
+    left: 30px;
+}
+.bg-carousel-next {
+    right: 30px;
+}
+
+.bg-carousel-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    z-index: 4;
+}
+.bg-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+.bg-dot.active {
+    background: var(--white);
+    border-color: var(--white);
+    transform: scale(1.2);
+}
+.bg-dot:hover {
+    background: var(--white);
+}
+
+/* =================================== */
+/* Global Section Styles (Tema Kaca Gold) */
+/* =================================== */
+section {
+    padding: 5rem 0;
+    position: relative;
+    z-index: 5;
+    background: transparent;
+}
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+}
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--secondary-color); /* Gold Muda */
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+    position: relative;
+    display: inline-block;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* KUNCI KONTRAS */
+}
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: var(--gradient); /* Gradient Gold */
+    opacity: 0.8;
+}
+
+/* MODIFIKASI: Teks Subtitle Ditebalkan + Kontras */
+.section-subtitle {
+    text-align: center;
+    max-width: 700px;
+    margin: 0.2rem auto 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 400; /* Ditebalkan dari 300 */
+    line-height: 1.7;
+    padding: 0 1rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+}
+
+/* Style Kartu Konten (Kaca Gelap + Border Gold) */
+.content-box {
+    background: rgba(0, 0, 0, 0.25); /* MODIFIKASI: Dibuat lebih transparan */
+    backdrop-filter: blur(5px); /* MODIFIKASI: Blur dikurangi */
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 15px;
+    border: 1px solid rgba(201, 148, 71, 0.3); /* Border Gold */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+    color: var(--text-color);
+    padding: 2.5rem;
+    /* Teks di dalam box TIDAK perlu shadow */
+    text-shadow: none;
+}
+.content-box:hover {
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+}
+/* Memastikan semua teks di dalam box tidak ada shadow */
+.content-box p,
+.content-box h3,
+.content-box .verse-text,
+.content-box .parents,
+.content-box .detail-item {
+    text-shadow: none;
+}
+
+/* Garis Pembatas */
+main section + section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--secondary-color),
+        transparent
+    );
+    opacity: 0.2;
+}
+
+/* =================================== */
+/* Found Love Section */
+/* =================================== */
+.found-love-content {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+.verse-text {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: var(--text-light);
+    font-style: italic;
+    font-weight: 300; /* Dibiarkan tipis karena kutipan */
+    margin-bottom: 1.5rem;
+}
+.verse-source {
+    font-size: 1rem;
+    color: var(--secondary-color); /* Gold Muda */
+    font-weight: 600;
+    font-family: var(--font-body);
+}
+
+/* =================================== */
+/* Couple Section (Tema Kaca Gold) */
+/* =================================== */
+.couple {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+.unified-frame {
+    padding: 2.5rem;
+}
+.islamic-greeting-frame {
+    text-align: center;
+    padding-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(201, 148, 71, 0.2); /* Border Gold */
+}
+.islamic-greeting p {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 1.2rem;
+    line-height: 1.4;
+}
+
+/* MODIFIKASI: Teks Ditebalkan */
+.unified-subtitle {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin: 0 auto;
+    font-weight: 400; /* Ditebalkan dari 300 */
+    max-width: 700px;
+}
+.couple-inner-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+}
+.couple-card {
+    flex: 1;
+    max-width: 400px;
+    text-align: center;
+    background: transparent;
+    padding: 0;
+}
+.couple-separator {
+    font-size: 2.5rem;
+    color: var(--secondary-color); /* Gold Muda */
+    text-shadow: 0 0 15px rgba(201, 148, 71, 0.4);
+    margin-top: 100px;
+}
+.unified-image-container {
+    position: relative;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+.oval-frame {
+    width: 200px;
+    height: 250px;
+    border-radius: 100px / 125px;
+    overflow: hidden;
+    border: 5px solid rgba(255, 255, 255, 0.5);
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.2),
+        0 0 0 5px var(--primary-color); /* Border Gold */
+    transition: var(--transition);
+}
+.oval-frame:hover {
+    transform: scale(1.05);
+}
+.oval-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: brightness(1.05);
+}
+.unified-info {
+    text-align: center;
+}
+/* MODIFIKASI: Font nama dikecilkan (sesuai file Anda) */
+.unified-name {
+    font-family: var(--font-script);
+    font-size: 2.5rem; 
+    color: var(--white);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(201, 148, 71, 0.4);
+}
+.unified-details {
+    margin-bottom: 1.2rem;
+}
+.detail-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+    color: var(--text-light);
+    font-weight: 400;
+    font-size: 1rem;
+}
+.detail-item i {
+    color: var(--secondary-color);
+    font-size: 1.1rem;
+}
+
+/* MODIFIKASI: Teks Ditebalkan */
+.parents {
+    color: var(--text-light);
+    opacity: 0.8;
+    font-weight: 400; /* Ditebalkan dari 300 */
+    margin-top: 0.4rem;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+.unified-social {
+    margin-top: 1.2rem;
+}
+.social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--secondary-color); /* Gold Muda */
+    text-decoration: none;
+    padding: 0.7rem 1.2rem;
+    border: 2px solid var(--secondary-color); /* Border Gold */
+    border-radius: 20px;
+    transition: var(--transition);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.social-btn:hover {
+    background: var(--gradient); /* Gradient Gold */
+    color: var(--white);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(201, 148, 71, 0.3);
+}
+
+/* =================================== */
+/* Events Section (Tema Kaca Gold) */
+/* =================================== */
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.event-card {
+    padding: 2.5rem 2rem;
+    text-align: center;
+}
+.event-icon {
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+.event-card h3 {
+    font-size: 2rem;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+}
+/* MODIFIKASI: Teks Ditebalkan */
+.event-details p {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--text-light);
+    font-weight: 400; /* Ditebalkan dari 300 */
+}
+.event-details p i {
+    color: var(--secondary-color);
+    opacity: 0.8;
+    width: 20px;
+    text-align: center;
+}
+.event-address {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-top: 1rem;
+}
+.map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--gradient); /* Gradient Gold */
+    color: var(--white);
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    margin-top: 1rem;
+    transition: var(--transition);
+    font-weight: 600;
+    font-family: var(--font-body);
+    box-shadow: 0 5px 15px rgba(201, 148, 71, 0.3);
+}
+.map-btn:hover {
+    background: var(--gradient);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(201, 148, 71, 0.4);
+}
+
+/* =================================== */
+/* Location Map Section */
+/* =================================== */
+.map-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2.5rem;
+}
+.map-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    margin-bottom: 2rem;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+}
+.google-map {
+    display: block;
+    border: none;
+    /* Filter peta dihapus */
+}
+.map-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+.map-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: var(--font-body);
+    transition: var(--transition);
+    border: 2px solid transparent;
+    font-size: 1rem;
+}
+.map-action-btn.primary {
+    background: var(--gradient);
+    color: var(--white);
+    box-shadow: 0 5px 15px rgba(201, 148, 71, 0.3);
+}
+.map-action-btn.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(201, 148, 71, 0.4);
+}
+.map-action-btn.secondary {
+    background: transparent;
+    color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+}
+.map-action-btn.secondary:hover {
+    background: var(--gradient);
+    color: var(--white);
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+/* =================================== */
+/* Gift Section (Kartu Bank Tetap Cerah) */
+/* =================================== */
+.bank-accounts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.bank-card {
+    border-radius: 15px;
+    padding: 2rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--transition);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-shadow: none; /* Pastikan teks di kartu bank bersih */
+}
+.bank-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.bank-logo img {
+    height: 30px;
+    filter: brightness(0) invert(1);
+}
+.card-number {
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    font-family: "Josefin Sans", sans-serif;
+    line-height: 1.2;
+}
+.account-name {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+}
+.card-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+.copy-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 600;
+    font-family: var(--font-body);
+}
+.copy-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.bank-card.bri-card {
+    background: linear-gradient(135deg, #004694, #007bff);
+}
+/* MODIFIKASI: Warna DANA (Sesuai file Anda) */
+.bank-card.dana-card {
+    background: linear-gradient( 
+        135deg,
+        #004684,
+        #007bff
+    );
+}
+.dana-card .bank-logo img {
+    filter: none;
+    height: 35px;
+}
+
+/* =================================== */
+/* RSVP Section (Tema Kaca Gold) */
+/* =================================== */
+.rsvp-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2.5rem;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(201, 148, 71, 0.3); /* Border Gold */
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    transition: var(--transition);
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--white);
+    text-shadow: none; /* Pastikan teks form bersih */
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-light);
+    opacity: 0.7;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 0 3px rgba(201, 148, 71, 0.3); /* Shadow Gold */
+}
+.submit-btn {
+    width: 100%;
+    background: var(--gradient); /* Gradient Gold */
+    color: var(--white);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(201, 148, 71, 0.3);
+    font-weight: 600;
+    font-family: var(--font-body);
+    text-shadow: none; /* Pastikan teks tombol bersih */
+}
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(201, 148, 71, 0.4);
+}
+/* Tombol dinonaktifkan saat loading */
+.submit-btn:disabled {
+    background: var(--text-light);
+    cursor: not-allowed;
+}
+
+
+/* =================================== */
+/* Footer Section (Tema Kaca Gold) */
+/* =================================== */
+.footer {
+    color: var(--text-light);
+    text-align: center;
+    padding: 5rem 0 3rem 0;
+    background: transparent;
+    position: relative;
+    z-index: 5;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+/* MODIFIKASI: Teks Ditebalkan + Kontras */
+.footer-content p {
+    font-size: 1.1rem;
+    font-weight: 400; /* Ditebalkan dari 300 */
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+}
+.footer h3 {
+    margin: 2rem 0 1rem;
+    font-size: 1.5rem;
+    color: var(--text-light);
+    font-weight: 400;
+    opacity: 0.8;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+}
+.footer h2 {
+    font-family: var(--font-script);
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    color: var(--secondary-color); /* Gold Muda */
+    font-weight: 700;
+    text-shadow:
+        0 0 15px rgba(201, 148, 71, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.5); /* KUNCI KONTRAS */
+}
+
+/* =================================== */
+/* Music Player (Tema Gold) */
+/* =================================== */
+.music-player {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
+}
+.music-toggle {
+    width: 50px;
+    height: 50px;
+    background: var(--gradient); /* Gradient Gold */
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(201, 148, 71, 0.3);
+    border: 2px solid var(--white);
+    text-shadow: none; /* Pastikan icon bersih */
+}
+.music-toggle:hover {
+    background: var(--gradient);
+    transform: scale(1.1);
+}
+
+/* =================================== */
+/* Animasi & Efek (Tidak Berubah) */
+/* =================================== */
+.cover-exit {
+    animation: coverSlideUp 1.5s ease forwards;
+}
+@keyframes coverSlideUp {
+    to {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
+.parallax-exit .parallax-layer {
+    animation: parallaxSlideUp 1.5s ease forwards;
+}
+@keyframes parallaxSlideUp {
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+.cover-content-exit .cover-subtitle,
+.cover-content-exit .cover-title,
+.cover-content-exit .cover-date,
+.cover-content-exit .cover-invitation,
+.cover-content-exit .open-invitation-btn {
+    animation: fadeOutUp 0.8s ease-out forwards;
+}
+@keyframes fadeOutUp {
+    to {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+/* =================================== */
+/* Responsive Design (Tidak Berubah) */
+/* =================================== */
+@media (max-width: 768px) {
+    section {
+        padding: 4rem 0;
+    }
+    .cover-title {
+        font-size: 4.5rem;
+    }
+    .cover-date {
+        font-size: 1.6rem;
+    }
+    .guest-name {
+        font-size: 2rem;
+    }
+
+    .hero-text-elegant {
+        padding: 2.5rem 1.5rem;
+        gap: 0.5rem;
+    }
+    .hero-subtitle-elegant {
+        font-size: 1.2rem;
+    }
+
+    .hero-name-new {
+        font-size: 4.5rem;
+    }
+    .hero-ampersand-new {
+        font-size: 2.2rem;
+    }
+
+    .hero-date-elegant {
+        font-size: 2rem;
+    }
+    .countdown-number-new {
+        font-size: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .couple-inner-container {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+    }
+    .couple-card {
+        max-width: 400px;
+    }
+    .couple-separator {
+        margin: 1rem 0;
+        margin-top: 0;
+    }
+    /* MODIFIKASI: Ukuran font nama di tablet (sesuai file Anda) */
+    .unified-name {
+        font-size: 2.5rem; 
+    }
+
+    .event-grid {
+        grid-template-columns: 1fr;
+    }
+    .bank-accounts {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    section {
+        padding: 3rem 0;
+    }
+    .container {
+        padding: 0 1rem;
+    }
+    .cover-title {
+        font-size: 3.5rem;
+    }
+    .guest-name {
+        font-size: 1.8rem;
+    }
+    .open-invitation-btn {
+        padding: 1rem 2.5rem;
+        font-size: 1rem;
+    }
+
+    .hero-text-elegant {
+        padding: 2rem 1rem;
+        width: 95%;
+    }
+
+    .hero-name-new {
+        font-size: 3.8rem;
+    }
+    .hero-ampersand-new {
+        font-size: 1.8rem;
+    }
+
+    .hero-date-elegant {
+        font-size: 1.8rem;
+    }
+    .countdown-timer-new {
+        gap: 1rem;
+    }
+    /* min-width dihapus dari sini (sesuai file Anda) */
+    .countdown-number-new {
+        font-size: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+    }
+    .content-box {
+        padding: 2rem 1.5rem;
+    }
+
+    .unified-frame {
+        padding: 2rem 1rem;
+    }
+    .couple-card {
+        max-width: 100%;
+    }
+    .oval-frame {
+        width: 150px;
+        height: 190px;
+    }
+    /* MODIFIKASI: Ukuran font nama di HP (sesuai file Anda) */
+    .unified-name {
+        font-size: 2rem;
+    }
+
+    .map-container {
+        padding: 2rem 1rem;
+    }
+    .map-action-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .bank-card {
+        padding: 1.5rem;
+    }
+    .card-number {
+        font-size: 1.3rem;
+    }
+
+    .rsvp-form {
+        padding: 2rem 1.5rem;
+    }
+}
+
+/* ============================================== */
+/* MODIFIKASI: Style Baru untuk Daftar Komentar */
+/* ============================================== */
+.comment-list-container {
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    padding: 2.5rem;
+}
+
+.comment-item {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--secondary-color);
+}
+
+.comment-item h4 {
+    font-size: 1.2rem;
+    color: var(--white);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.comment-item span {
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.comment-item p {
+    font-size: 1rem;
+    color: var(--text-light);
+    font-weight: 400;
+    line-height: 1.6;
+}
+/* ============================================== */
+/* AKHIR MODIFIKASI */
+/* ============================================== */
