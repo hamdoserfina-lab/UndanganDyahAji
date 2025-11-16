@@ -112,7 +112,7 @@ h6 {
     width: 100%;
     height: 100%;
     background-size: cover;
-    background-position: center;
+    background-position: center top; /* MODIFIKASI: dari center */
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
     transform: scale(1.1);
@@ -334,7 +334,7 @@ h6 {
     width: 100%;
     height: 100%;
     background-size: cover;
-    background-position: center;
+    background-position: center top; /* MODIFIKASI: dari center */
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
     transform: scale(1.1);
@@ -398,9 +398,9 @@ h6 {
     left: 50%;
     transform: translateX(-50%);
     width: 120px;
-    height: 1px;
+    height: 2px;
     background: var(--secondary-color);
-    opacity: 0.5;
+    opacity: 0.8;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
@@ -460,16 +460,16 @@ h6 {
     left: 50%;
     transform: translateX(-50%);
     width: 120px;
-    height: 1px;
+    height: 2px;
     background: var(--secondary-color);
-    opacity: 0.5;
+    opacity: 0.8;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .date-separator {
-    width: 2px;
+    width: 3px;
     height: 30px;
-    background: rgba(201, 148, 71, 0.3);
+    background: rgba(201, 148, 71, 0.7);
     transform: rotate(20deg);
 }
 
@@ -607,14 +607,14 @@ main section + section::before {
     transform: translateX(-50%);
     width: 80%;
     max-width: 600px;
-    height: 1px;
+    height: 2px; /* MODIFIKASI: dari 1px */
     background: linear-gradient(
         90deg,
         transparent,
         var(--secondary-color),
         transparent
     );
-    opacity: 0.2;
+    opacity: 0.4; /* MODIFIKASI: dari 0.2 */
 }
 
 /* =================================== */
@@ -628,7 +628,7 @@ main section + section::before {
 .verse-text {
     font-size: 1.2rem;
     line-height: 1.8;
-    color: var(--text-light);
+    color: var(--text-color);
     font-style: italic;
     font-weight: 300;
     margin-bottom: 1.5rem;
@@ -1085,7 +1085,7 @@ main section + section::before {
 }
 
 /* =================================== */
-/* Music Player (Tema Gold) */
+/* Music Player (Tema Kaca Gold) */
 /* =================================== */
 .music-player {
     position: fixed;
@@ -1308,6 +1308,29 @@ main section + section::before {
     max-width: 600px;
     margin: 0 auto 2rem auto;
     padding: 2.5rem;
+}
+
+/* MODIFIKASI: Membuat daftar komentar bisa di-scroll */
+#commentList {
+    max-height: 400px; /* Batas tinggi, sekitar 3-4 komentar */
+    overflow-y: auto; /* Tambah scrollbar jika konten melebihi max-height */
+    padding-right: 5px; /* Sedikit ruang untuk scrollbar */
+}
+
+/* MODIFIKASI: Styling scrollbar agar sesuai tema */
+#commentList::-webkit-scrollbar {
+    width: 6px;
+}
+#commentList::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+#commentList::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 10px;
+}
+#commentList::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
 }
 
 .comment-item {
