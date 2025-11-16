@@ -61,8 +61,8 @@ h6 {
 /* Efek Glassmorphism (Kaca Gelap) */
 /* =================================== */
 .glass-effect {
-    background: rgba(0, 0, 0, 0.25); /* MODIFIKASI: Dibuat lebih transparan */
-    backdrop-filter: blur(5px); /* MODIFIKASI: Blur dikurangi */
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border-radius: 15px;
     border: 1px solid rgba(201, 148, 71, 0.3);
@@ -98,7 +98,14 @@ h6 {
     height: 100%;
     z-index: 0;
 }
-.parallax-layer {
+.parallax-background .hero-bg-carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.parallax-background .bg-slide {
     position: absolute;
     top: 0;
     left: 0;
@@ -106,9 +113,16 @@ h6 {
     height: 100%;
     background-size: cover;
     background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    transform: scale(1.1);
+    filter: grayscale(0.3);
+}
+.parallax-background .bg-slide.active {
+    opacity: 1;
+    transform: scale(1);
 }
 .cover-bg {
-    background-image: url("assets/cover-bg.jpg");
     z-index: 1;
 }
 .cover::before {
@@ -131,18 +145,17 @@ h6 {
     max-width: 90%;
 }
 
-/* MODIFIKASI: Menambah font-weight dan text-shadow */
 .cover-subtitle {
     font-family: var(--font-body);
     font-size: 1.5rem;
-    font-weight: 400; /* Ditebalkan dari 300 */
+    font-weight: 400;
     margin-bottom: 1rem;
     opacity: 0;
     transform: translateY(30px);
-    color: var(--secondary-color); /* Gold Muda */
+    color: var(--secondary-color);
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* KUNCI KONTRAS */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 .cover-title {
     font-family: var(--font-script);
@@ -152,7 +165,7 @@ h6 {
     opacity: 0;
     transform: translateY(30px);
     color: var(--white);
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 .cover-date {
     font-family: var(--font-heading);
@@ -161,8 +174,8 @@ h6 {
     margin-bottom: 3rem;
     opacity: 0;
     transform: translateY(30px);
-    color: var(--secondary-color); /* Gold Muda */
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* KUNCI KONTRAS */
+    color: var(--secondary-color);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .cover-invitation {
@@ -175,23 +188,22 @@ h6 {
     font-size: 1.1rem;
     margin-bottom: 1rem;
     color: var(--text-on-dark);
-    font-weight: 400; /* Ditebalkan dari 300 */
+    font-weight: 400;
     line-height: 1.6;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* KUNCI KONTRAS */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 .guest-name {
     font-family: var(--font-heading);
     font-size: 2.5rem;
     margin: 1.5rem 0;
-    color: var(--secondary-color); /* MODIFIKASI: Ganti ke Gold */
+    color: var(--secondary-color);
     font-weight: 700;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* KUNCI KONTRAS */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* MODIFIKASI: Tombol Buka Undangan dibalik */
 .open-invitation-btn {
-    background: var(--gradient); /* MODIFIKASI: Ganti ke Gold */
-    color: var(--white); /* MODIFIKASI: Ganti ke Putih */
+    background: var(--gradient);
+    color: var(--white);
     border: none;
     padding: 1.2rem 3rem;
     font-size: 1.2rem;
@@ -206,14 +218,66 @@ h6 {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 .open-invitation-btn:hover {
-    background: var(--gradient); /* MODIFIKASI: Tetap Gold */
+    background: var(--gradient);
     transform: translateY(-3px) scale(1.05);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    filter: brightness(1.1); /* MODIFIKASI: Efek hover baru */
+    filter: brightness(1.1);
 }
 .open-invitation-btn i {
     margin-right: 0.8rem;
     font-size: 1.1rem;
+}
+
+/* =================================== */
+/* Tombol Navigasi Cover (Animasi Pulse) */
+/* =================================== */
+.cover-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    font-size: 2.5rem;
+    transition: var(--transition);
+    z-index: 6;
+    padding: 1rem;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    opacity: 0; /* Mulai dari hilang */
+    animation: hintPulse 5s infinite ease-in-out; /* Animasi loop 5 detik */
+    animation-delay: 3s; /* Mulai setelah 3 detik */
+}
+.cover-nav-btn:hover {
+    color: var(--white);
+    transform: translateY(-50%) scale(1.1);
+    animation: none; /* Hentikan animasi saat di-hover */
+    opacity: 1; /* Tampilkan penuh saat hover */
+}
+.cover-nav-btn.prev {
+    left: 15px;
+}
+.cover-nav-btn.next {
+    right: 15px;
+}
+
+/* Animasi untuk petunjuk navigasi */
+@keyframes hintPulse {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%) scale(1);
+    }
+    20% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.1);
+    } /* Muncul dan membesar */
+    40% {
+        opacity: 0;
+        transform: translateY(-50%) scale(1);
+    } /* Hilang */
+    100% {
+        opacity: 0;
+    } /* Tetap hilang */
 }
 
 /* =================================== */
@@ -285,103 +349,109 @@ h6 {
     z-index: 3;
     text-align: center;
     padding: 0 2rem;
+    width: 100%;
+    max-width: 1200px;
 }
 
 /* ========================================== */
-/* Layout "Klasik Pembatas" (MODIFIKASI KONTRAS) */
+/* Layout "WOW" Baru untuk Hero */
 /* ========================================== */
-
-/* MODIFIKASI: Menambahkan efek Kaca di Hero agar lebih menarik */
-.hero-text-elegant {
+.hero-text-wow {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    max-width: 800px;
-    padding: 3rem 2rem;
-    transition: transform 0.1s ease-out;
-
-    /* Menggunakan .glass-effect dari tema */
-    background: rgba(0, 0, 0, 0.25); /* MODIFIKASI: Dibuat lebih transparan */
-    backdrop-filter: blur(5px); /* MODIFIKASI: Blur dikurangi */
-    -webkit-backdrop-filter: blur(5px);
-    border-radius: 15px;
-    border: 1px solid rgba(201, 148, 71, 0.3);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    gap: 1.5rem;
+    width: 100%;
+    padding: 2rem 0;
 }
 
 .hero-subtitle-elegant {
     font-family: var(--font-body);
     font-size: 1.5rem;
-    font-weight: 400; /* Ditebalkan dari 300 */
+    font-weight: 400;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--text-light);
     margin-bottom: 1.5rem;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+    /* Animasi GSAP */
+    opacity: 0;
+    transform: translateY(-30px);
 }
 
-/* MODIFIKASI: Layout Nama diubah jadi Vertikal */
-.hero-names-new {
+.hero-names-wow {
     display: flex;
-    flex-direction: column; /* <-- MODIFIKASI INI */
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem; /* <-- Gap dikurangi untuk vertikal */
+    gap: 2.5rem;
+    width: 100%;
     position: relative;
     padding-top: 1.5rem;
-    margin: 0.5rem 0;
+    margin: 1.5rem 0;
 }
-.hero-names-new::before {
+.hero-names-wow::before {
     content: "";
     position: absolute;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
+    width: 120px;
     height: 1px;
     background: var(--secondary-color);
     opacity: 0.5;
-    /* Bayangan untuk garis agar terlihat di bg terang */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .hero-name-new {
     font-family: var(--font-script);
-    font-size: 6rem;
+    font-size: 7rem;
     font-weight: 700;
     color: var(--white);
-    /* Shadow Gold + Shadow Kontras */
     text-shadow:
-        0 0 15px rgba(201, 148, 71, 0.7),
-        0 2px 4px rgba(0, 0, 0, 0.5);
+        0 0 20px rgba(201, 148, 71, 0.7),
+        0 4px 10px rgba(0, 0, 0, 0.6);
     position: relative;
     z-index: 2;
+    /* Animasi GSAP */
+    opacity: 0;
 }
+#heroName1 {
+    transform: translateX(-50px);
+}
+#heroName2 {
+    transform: translateX(50px);
+}
+
 .hero-ampersand-new {
     font-family: var(--font-heading);
     font-weight: 400;
     color: var(--secondary-color);
     position: static;
     z-index: 1;
-    font-size: 3rem;
+    font-size: 4rem;
     transform: none;
-    opacity: 1;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+    /* Animasi GSAP */
+    opacity: 0;
+    transform: scale(0.5);
 }
 
 .hero-date-elegant {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
+    gap: 1.5rem;
     font-family: var(--font-heading);
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 700;
     color: var(--white);
     position: relative;
     padding-bottom: 1.5rem;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+    /* Animasi GSAP */
+    opacity: 0;
+    transform: translateY(30px);
 }
 .hero-date-elegant::after {
     content: "";
@@ -389,31 +459,31 @@ h6 {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
+    width: 120px;
     height: 1px;
     background: var(--secondary-color);
     opacity: 0.5;
-    /* Bayangan untuk garis agar terlihat di bg terang */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .date-separator {
     width: 2px;
-    height: 25px;
+    height: 30px;
     background: rgba(201, 148, 71, 0.3);
     transform: rotate(20deg);
 }
 
 .countdown-new {
     margin: 1.5rem 0 0 0;
+    /* Animasi GSAP */
+    opacity: 0;
+    transform: translateY(30px);
 }
-/* MODIFIKASI: Countdown dibuat 1 baris (flex-wrap dihapus) */
 .countdown-timer-new {
     display: flex;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 2rem;
 }
-/* MODIFIKASI: Countdown (min-width dihapus agar bisa 'menciut') */
 .countdown-item-new {
     background: transparent;
     padding: 0.5rem;
@@ -421,86 +491,33 @@ h6 {
     transition: var(--transition);
     position: relative;
 }
-/* MODIFIKASI: Font countdown dikecilkan */
 .countdown-number-new {
-    font-size: 2rem; 
+    font-size: 2.5rem;
     font-weight: 600;
     color: var(--white);
     margin-bottom: 0.5rem;
     font-family: var(--font-body);
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
 }
-/* MODIFIKASI: Font countdown dikecilkan */
 .countdown-label-new {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     color: var(--secondary-color);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-weight: 600;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 /* ================================== */
-/* AKHIR MODIFIKASI */
+/* AKHIR MODIFIKASI HERO */
 /* ================================== */
 
-/* =================================== */
-/* Navigasi Carousel */
-/* =================================== */
 .bg-carousel-prev,
 .bg-carousel-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--white);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: var(--transition);
-    z-index: 4;
-    text-shadow: none; /* Pastikan icon navigasi bersih */
+    display: none;
 }
-.bg-carousel-prev:hover,
-.bg-carousel-next:hover {
-    background: var(--white);
-    color: var(--primary-color);
-}
-.bg-carousel-prev {
-    left: 30px;
-}
-.bg-carousel-next {
-    right: 30px;
-}
-
 .bg-carousel-dots {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 1rem;
-    z-index: 4;
-}
-.bg-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    cursor: pointer;
-    transition: var(--transition);
-    border: 2px solid transparent;
-}
-.bg-dot.active {
-    background: var(--white);
-    border-color: var(--white);
-    transform: scale(1.2);
-}
-.bg-dot:hover {
-    background: var(--white);
+    display: none;
 }
 
 /* =================================== */
@@ -527,12 +544,12 @@ section {
     font-family: var(--font-heading);
     font-size: 3rem;
     font-weight: 600;
-    color: var(--secondary-color); /* Gold Muda */
+    color: var(--secondary-color);
     margin-bottom: 1rem;
     letter-spacing: 0.05em;
     position: relative;
     display: inline-block;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* KUNCI KONTRAS */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 .section-title::after {
     content: "";
@@ -542,42 +559,38 @@ section {
     transform: translateX(-50%);
     width: 60px;
     height: 2px;
-    background: var(--gradient); /* Gradient Gold */
+    background: var(--gradient);
     opacity: 0.8;
 }
 
-/* MODIFIKASI: Teks Subtitle Ditebalkan + Kontras */
 .section-subtitle {
     text-align: center;
     max-width: 700px;
     margin: 0.2rem auto 0;
     color: var(--text-color);
     font-size: 1.1rem;
-    font-weight: 400; /* Ditebalkan dari 300 */
+    font-weight: 400;
     line-height: 1.7;
     padding: 0 1rem;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
-/* Style Kartu Konten (Kaca Gelap + Border Gold) */
 .content-box {
-    background: rgba(0, 0, 0, 0.25); /* MODIFIKASI: Dibuat lebih transparan */
-    backdrop-filter: blur(5px); /* MODIFIKASI: Blur dikurangi */
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border-radius: 15px;
-    border: 1px solid rgba(201, 148, 71, 0.3); /* Border Gold */
+    border: 1px solid rgba(201, 148, 71, 0.3);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
     transition: var(--transition);
     color: var(--text-color);
     padding: 2.5rem;
-    /* Teks di dalam box TIDAK perlu shadow */
     text-shadow: none;
 }
 .content-box:hover {
     box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.3);
     transform: translateY(-3px);
 }
-/* Memastikan semua teks di dalam box tidak ada shadow */
 .content-box p,
 .content-box h3,
 .content-box .verse-text,
@@ -586,7 +599,6 @@ section {
     text-shadow: none;
 }
 
-/* Garis Pembatas */
 main section + section::before {
     content: "";
     position: absolute;
@@ -618,12 +630,12 @@ main section + section::before {
     line-height: 1.8;
     color: var(--text-light);
     font-style: italic;
-    font-weight: 300; /* Dibiarkan tipis karena kutipan */
+    font-weight: 300;
     margin-bottom: 1.5rem;
 }
 .verse-source {
     font-size: 1rem;
-    color: var(--secondary-color); /* Gold Muda */
+    color: var(--secondary-color);
     font-weight: 600;
     font-family: var(--font-body);
 }
@@ -642,7 +654,7 @@ main section + section::before {
     text-align: center;
     padding-bottom: 2rem;
     margin-bottom: 2.5rem;
-    border-bottom: 1px solid rgba(201, 148, 71, 0.2); /* Border Gold */
+    border-bottom: 1px solid rgba(201, 148, 71, 0.2);
 }
 .islamic-greeting p {
     font-family: var(--font-heading);
@@ -653,13 +665,12 @@ main section + section::before {
     line-height: 1.4;
 }
 
-/* MODIFIKASI: Teks Ditebalkan */
 .unified-subtitle {
     color: var(--text-color);
     font-size: 1.1rem;
     line-height: 1.7;
     margin: 0 auto;
-    font-weight: 400; /* Ditebalkan dari 300 */
+    font-weight: 400;
     max-width: 700px;
 }
 .couple-inner-container {
@@ -677,7 +688,7 @@ main section + section::before {
 }
 .couple-separator {
     font-size: 2.5rem;
-    color: var(--secondary-color); /* Gold Muda */
+    color: var(--secondary-color);
     text-shadow: 0 0 15px rgba(201, 148, 71, 0.4);
     margin-top: 100px;
 }
@@ -695,7 +706,7 @@ main section + section::before {
     border: 5px solid rgba(255, 255, 255, 0.5);
     box-shadow:
         0 5px 20px rgba(0, 0, 0, 0.2),
-        0 0 0 5px var(--primary-color); /* Border Gold */
+        0 0 0 5px var(--primary-color);
     transition: var(--transition);
 }
 .oval-frame:hover {
@@ -711,10 +722,9 @@ main section + section::before {
 .unified-info {
     text-align: center;
 }
-/* MODIFIKASI: Font nama dikecilkan (sesuai file Anda) */
 .unified-name {
     font-family: var(--font-script);
-    font-size: 2.5rem; 
+    font-size: 2.5rem;
     color: var(--white);
     margin-bottom: 0.8rem;
     font-weight: 700;
@@ -736,13 +746,29 @@ main section + section::before {
 .detail-item i {
     color: var(--secondary-color);
     font-size: 1.1rem;
+    width: 16px;
+    text-align: center;
+}
+.address-item {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    line-height: 1.5;
+    margin-top: 0.5rem;
+    font-weight: 400;
+}
+.address-item i {
+    font-size: 1rem;
+    align-self: flex-start;
+    margin-top: 4px;
+}
+.address-item span {
+    text-align: center;
 }
 
-/* MODIFIKASI: Teks Ditebalkan */
 .parents {
     color: var(--text-light);
     opacity: 0.8;
-    font-weight: 400; /* Ditebalkan dari 300 */
+    font-weight: 400;
     margin-top: 0.4rem;
     line-height: 1.5;
     font-size: 1rem;
@@ -754,17 +780,17 @@ main section + section::before {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--secondary-color); /* Gold Muda */
+    color: var(--secondary-color);
     text-decoration: none;
     padding: 0.7rem 1.2rem;
-    border: 2px solid var(--secondary-color); /* Border Gold */
+    border: 2px solid var(--secondary-color);
     border-radius: 20px;
     transition: var(--transition);
     font-weight: 600;
     font-size: 0.9rem;
 }
 .social-btn:hover {
-    background: var(--gradient); /* Gradient Gold */
+    background: var(--gradient);
     color: var(--white);
     border-color: var(--primary-color);
     transform: translateY(-2px);
@@ -795,7 +821,6 @@ main section + section::before {
     color: var(--white);
     margin-bottom: 1.5rem;
 }
-/* MODIFIKASI: Teks Ditebalkan */
 .event-details p {
     margin-bottom: 1rem;
     display: flex;
@@ -803,7 +828,7 @@ main section + section::before {
     justify-content: center;
     gap: 0.5rem;
     color: var(--text-light);
-    font-weight: 400; /* Ditebalkan dari 300 */
+    font-weight: 400;
 }
 .event-details p i {
     color: var(--secondary-color);
@@ -815,26 +840,6 @@ main section + section::before {
     font-size: 0.9rem;
     opacity: 0.7;
     margin-top: 1rem;
-}
-.map-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--gradient); /* Gradient Gold */
-    color: var(--white);
-    padding: 0.8rem 1.5rem;
-    border-radius: 25px;
-    text-decoration: none;
-    margin-top: 1rem;
-    transition: var(--transition);
-    font-weight: 600;
-    font-family: var(--font-body);
-    box-shadow: 0 5px 15px rgba(201, 148, 71, 0.3);
-}
-.map-btn:hover {
-    background: var(--gradient);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(201, 148, 71, 0.4);
 }
 
 /* =================================== */
@@ -855,7 +860,6 @@ main section + section::before {
 .google-map {
     display: block;
     border: none;
-    /* Filter peta dihapus */
 }
 .map-actions {
     display: flex;
@@ -920,7 +924,7 @@ main section + section::before {
     justify-content: space-between;
     transition: var(--transition);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    text-shadow: none; /* Pastikan teks di kartu bank bersih */
+    text-shadow: none;
 }
 .bank-card:hover {
     transform: translateY(-5px);
@@ -968,16 +972,12 @@ main section + section::before {
     background: rgba(255, 255, 255, 0.4);
 }
 
+/* MODIFIKASI: Warna BRI diubah jadi Biru Tua */
 .bank-card.bri-card {
-    background: linear-gradient(135deg, #004694, #007bff);
+    background: linear-gradient(135deg, #002b5c, #005c9e);
 }
-/* MODIFIKASI: Warna DANA (Sesuai file Anda) */
 .bank-card.dana-card {
-    background: linear-gradient( 
-        135deg,
-        #004684,
-        #007bff
-    );
+    background: linear-gradient(135deg, #004684, #007bff);
 }
 .dana-card .bank-logo img {
     filter: none;
@@ -1000,14 +1000,14 @@ main section + section::before {
 .form-group textarea {
     width: 100%;
     padding: 1rem;
-    border: 1px solid rgba(201, 148, 71, 0.3); /* Border Gold */
+    border: 1px solid rgba(201, 148, 71, 0.3);
     border-radius: 10px;
     font-size: 1rem;
     font-family: var(--font-body);
     transition: var(--transition);
     background: rgba(0, 0, 0, 0.3);
     color: var(--white);
-    text-shadow: none; /* Pastikan teks form bersih */
+    text-shadow: none;
 }
 .form-group input::placeholder,
 .form-group textarea::placeholder {
@@ -1020,11 +1020,11 @@ main section + section::before {
     outline: none;
     border-color: var(--secondary-color);
     background: rgba(0, 0, 0, 0.4);
-    box-shadow: 0 0 0 3px rgba(201, 148, 71, 0.3); /* Shadow Gold */
+    box-shadow: 0 0 0 3px rgba(201, 148, 71, 0.3);
 }
 .submit-btn {
     width: 100%;
-    background: var(--gradient); /* Gradient Gold */
+    background: var(--gradient);
     color: var(--white);
     border: none;
     padding: 1rem 2rem;
@@ -1035,18 +1035,16 @@ main section + section::before {
     box-shadow: 0 5px 15px rgba(201, 148, 71, 0.3);
     font-weight: 600;
     font-family: var(--font-body);
-    text-shadow: none; /* Pastikan teks tombol bersih */
+    text-shadow: none;
 }
 .submit-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(201, 148, 71, 0.4);
 }
-/* Tombol dinonaktifkan saat loading */
 .submit-btn:disabled {
     background: var(--text-light);
     cursor: not-allowed;
 }
-
 
 /* =================================== */
 /* Footer Section (Tema Kaca Gold) */
@@ -1060,13 +1058,12 @@ main section + section::before {
     z-index: 5;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
-/* MODIFIKASI: Teks Ditebalkan + Kontras */
 .footer-content p {
     font-size: 1.1rem;
-    font-weight: 400; /* Ditebalkan dari 300 */
+    font-weight: 400;
     max-width: 700px;
     margin: 0 auto 2rem auto;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 .footer h3 {
     margin: 2rem 0 1rem;
@@ -1074,17 +1071,17 @@ main section + section::before {
     color: var(--text-light);
     font-weight: 400;
     opacity: 0.8;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* KUNCI KONTRAS */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 .footer h2 {
     font-family: var(--font-script);
     font-size: 4rem;
     margin-bottom: 2rem;
-    color: var(--secondary-color); /* Gold Muda */
+    color: var(--secondary-color);
     font-weight: 700;
     text-shadow:
         0 0 15px rgba(201, 148, 71, 0.4),
-        0 2px 4px rgba(0, 0, 0, 0.5); /* KUNCI KONTRAS */
+        0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* =================================== */
@@ -1097,18 +1094,21 @@ main section + section::before {
     z-index: 1000;
 }
 .music-toggle {
-    width: 50px;
-    height: 50px;
-    background: var(--gradient); /* Gradient Gold */
+    width: 40px;
+    height: 40px;
+    background: var(--gradient);
     color: var(--white);
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1rem;
     transition: var(--transition);
     box-shadow: 0 5px 15px rgba(201, 148, 71, 0.3);
     border: 2px solid var(--white);
-    text-shadow: none; /* Pastikan icon bersih */
+    text-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .music-toggle:hover {
     background: var(--gradient);
@@ -1151,7 +1151,7 @@ main section + section::before {
 }
 
 /* =================================== */
-/* Responsive Design (Tidak Berubah) */
+/* Responsive Design (MODIFIKASI HERO) */
 /* =================================== */
 @media (max-width: 768px) {
     section {
@@ -1167,26 +1167,30 @@ main section + section::before {
         font-size: 2rem;
     }
 
-    .hero-text-elegant {
-        padding: 2.5rem 1.5rem;
-        gap: 0.5rem;
+    .hero-text-wow {
+        gap: 0.8rem;
+        padding: 1rem 0;
     }
     .hero-subtitle-elegant {
         font-size: 1.2rem;
     }
-
+    .hero-names-wow {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin: 1rem 0;
+    }
     .hero-name-new {
-        font-size: 4.5rem;
+        font-size: 5rem;
     }
     .hero-ampersand-new {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
     }
-
     .hero-date-elegant {
-        font-size: 2rem;
+        font-size: 2.2rem;
+        gap: 1rem;
     }
     .countdown-number-new {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
 
     .section-title {
@@ -1205,9 +1209,8 @@ main section + section::before {
         margin: 1rem 0;
         margin-top: 0;
     }
-    /* MODIFIKASI: Ukuran font nama di tablet (sesuai file Anda) */
     .unified-name {
-        font-size: 2.5rem; 
+        font-size: 2.5rem;
     }
 
     .event-grid {
@@ -1237,25 +1240,22 @@ main section + section::before {
         font-size: 1rem;
     }
 
-    .hero-text-elegant {
-        padding: 2rem 1rem;
-        width: 95%;
+    .hero-text-wow {
+        padding: 1rem 0;
+        gap: 0.5rem;
     }
-
     .hero-name-new {
         font-size: 3.8rem;
     }
     .hero-ampersand-new {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
-
     .hero-date-elegant {
         font-size: 1.8rem;
     }
     .countdown-timer-new {
         gap: 1rem;
     }
-    /* min-width dihapus dari sini (sesuai file Anda) */
     .countdown-number-new {
         font-size: 1.5rem;
     }
@@ -1277,7 +1277,6 @@ main section + section::before {
         width: 150px;
         height: 190px;
     }
-    /* MODIFIKASI: Ukuran font nama di HP (sesuai file Anda) */
     .unified-name {
         font-size: 2rem;
     }
@@ -1303,7 +1302,7 @@ main section + section::before {
 }
 
 /* ============================================== */
-/* MODIFIKASI: Style Baru untuk Daftar Komentar */
+/* Style untuk Daftar Komentar */
 /* ============================================== */
 .comment-list-container {
     max-width: 600px;
@@ -1340,6 +1339,3 @@ main section + section::before {
     font-weight: 400;
     line-height: 1.6;
 }
-/* ============================================== */
-/* AKHIR MODIFIKASI */
-/* ============================================== */

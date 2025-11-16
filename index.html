@@ -1,462 +1,557 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Wedding Of DYAH & AJI</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>The Wedding Of DYAH & AJI</title>
 
-    <!-- ========== OPEN GRAPH AGAR PREVIEW MUNCUL DI WHATSAPP ========== -->
-    <meta property="og:title" content="Undangan Pernikahan Dyah & Aji" />
-    <meta
-      property="og:description"
-      content="Silakan buka undangan pernikahan Dyah & Aji. Klik untuk melihat detail acara."
-    />
-    <meta
-      property="og:image"
-      content="https://hamdoserfina-lab.github.io/UndanganDyahAji/assets/cover-bg.jpg"
-    />
-    <meta
-      property="og:url"
-      content="https://hamdoserfina-lab.github.io/UndanganDyahAji/"
-    />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <!-- ================================================================ -->
+        <!-- ========== OPEN GRAPH AGAR PREVIEW MUNCUL DI WHATSAPP ========== -->
+        <meta property="og:title" content="Undangan Pernikahan Dyah & Aji" />
+        <meta
+            property="og:description"
+            content="Silakan buka undangan pernikahan Dyah & Aji. Klik untuk melihat detail acara."
+        />
+        <meta
+            property="og:image"
+            content="https://hamdoserfina-lab.github.io/UndanganDyahAji/assets/cover-bg.jpg"
+        />
+        <meta
+            property="og:url"
+            content="https://hamdoserfina-lab.github.io/UndanganDyahAji/"
+        />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <!-- ================================================================ -->
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-  </head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@300;400;600&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        />
+    </head>
 
-  <body>
-    <div class="hero-background">
-      <div class="hero-bg-carousel">
-        <div
-          class="bg-slide active"
-          style="background-image: url('assets/hero-bg-1.jpg')"
-        ></div>
-        <div
-          class="bg-slide"
-          style="background-image: url('assets/hero-bg-2.jpg')"
-        ></div>
-        <div
-          class="bg-slide"
-          style="background-image: url('assets/hero-bg-3.jpg')"
-        ></div>
-      </div>
-    </div>
-
-    <section class="cover" id="cover">
-      <div class="parallax-background">
-        <div
-          class="parallax-layer cover-bg"
-          style="background-image: url('assets/cover-bg.jpg')"
-        ></div>
-      </div>
-
-      <div class="cover-content">
-        <div class="cover-text">
-          <h2 class="cover-subtitle">THE WEDDING OF</h2>
-          <h1 class="cover-title">Dyah & Aji</h1>
-          <p class="cover-date">SENIN, 15 DESEMBER 2025</p>
+    <body>
+        <div class="hero-background">
+            <div class="hero-bg-carousel">
+                <div
+                    class="bg-slide active"
+                    style="
+                        background-image: url(&quot;assets/hero-bg-1.jpg&quot;);
+                    "
+                ></div>
+                <div
+                    class="bg-slide"
+                    style="
+                        background-image: url(&quot;assets/hero-bg-2.jpg&quot;);
+                    "
+                ></div>
+                <div
+                    class="bg-slide"
+                    style="
+                        background-image: url(&quot;assets/hero-bg-3.jpg&quot;);
+                    "
+                ></div>
+            </div>
         </div>
 
-        <div class="cover-invitation">
-          <p>Kepada Yth:<br />Bpk/Ibu/Saudara/i</p>
-          <h3 class="guest-name">Nama Tamu</h3>
-          <p>Di Tempat</p>
-        </div>
-
-        <button class="open-invitation-btn" id="openBtn">
-          <i class="fas fa-envelope-open"></i>
-          Buka Undangan
-        </button>
-      </div>
-    </section>
-
-    <main class="main-content" id="mainContent">
-      <section class="hero" id="hero">
-        <div class="hero-content">
-          <div class="hero-text-elegant">
-            <h3 class="hero-subtitle-elegant">Save The Date</h3>
-            <div class="hero-names-new">
-              <span class="hero-name-new">Dyah</span>
-              <span class="hero-ampersand-new">&</span>
-              <span class="hero-name-new">Aji</span>
-            </div>
-            <div class="hero-date-elegant">
-              <span>15</span><span class="date-separator"></span><span>12</span
-              ><span class="date-separator"></span><span>2025</span>
-            </div>
-            <div class="countdown-new">
-              <div class="countdown-timer-new">
-                <div class="countdown-item-new">
-                  <div class="countdown-number-new" id="days">00</div>
-                  <div class="countdown-label-new">Hari</div>
+        <section class="cover" id="cover">
+            <div class="parallax-background">
+                <div class="hero-bg-carousel" id="coverCarousel">
+                    <div
+                        class="bg-slide active"
+                        style="
+                            background-image: url(&quot;assets/hero-bg-1.jpg&quot;);
+                        "
+                    ></div>
+                    <div
+                        class="bg-slide"
+                        style="
+                            background-image: url(&quot;assets/hero-bg-2.jpg&quot;);
+                        "
+                    ></div>
+                    <div
+                        class="bg-slide"
+                        style="
+                            background-image: url(&quot;assets/hero-bg-3.jpg&quot;);
+                        "
+                    ></div>
                 </div>
-                <div class="countdown-item-new">
-                  <div class="countdown-number-new" id="hours">00</div>
-                  <div class="countdown-label-new">Jam</div>
-                </div>
-                <div class="countdown-item-new">
-                  <div class="countdown-number-new" id="minutes">00</div>
-                  <div class="countdown-label-new">Menit</div>
-                </div>
-                <div class="countdown-item-new">
-                  <div class="countdown-number-new" id="seconds">00</div>
-                  <div class="countdown-label-new">Detik</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button class="bg-carousel-prev">
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <button class="bg-carousel-next">
-          <i class="fas fa-chevron-right"></i>
-        </button>
-        <div class="bg-carousel-dots">
-          <span class="bg-dot active" data-slide="0"></span>
-          <span class="bg-dot" data-slide="1"></span>
-          <span class="bg-dot" data-slide="2"></span>
-        </div>
-      </section>
-
-      <section class="found-love" id="foundLove">
-        <div class="container">
-          <div class="found-love-content">
-            <h2 class="section-title" data-anim="fade-up">We Found Love</h2>
-            <div class="content-box" data-anim="fade-up">
-              <blockquote class="verse-text">
-                "Dan di antara tanda-tanda kekuasaan-Nya diciptakan-Nya untukmu
-                pasangan hidup dari jenismu sendiri supaya kamu dapat ketenangan
-                hati dan dijadikannya kasih sayang di antara kamu. Sesungguhnya
-                yang demikian menjadi tanda-tanda kebesaran-Nya bagi orang-orang
-                yang berpikir."
-              </blockquote>
-              <p class="verse-source">QS. Ar-Rum Ayat 21</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="couple" id="couple">
-        <div class="container">
-          <div class="section-header" data-anim="fade-up">
-            <h2 class="section-title">Bride & Groom</h2>
-          </div>
-
-          <div class="unified-frame content-box" data-anim="fade-up">
-            <div class="islamic-greeting-frame">
-              <div class="islamic-greeting">
-                <p>Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
-              </div>
-              <p class="unified-subtitle">
-                Dengan memohon rahmat dan ridho Allah Swt. kami bermaksud
-                mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan
-                kami:
-              </p>
             </div>
 
-            <div class="couple-inner-container">
-              <div class="couple-card bride">
-                <div class="unified-image-container">
-                  <div class="oval-frame">
-                    <img
-                      src="assets/bride.jpg"
-                      alt="Setyo Dyah Pramesti"
-                      class="oval-image"
-                    />
-                  </div>
+            <div class="cover-content">
+                <div class="cover-text">
+                    <h2 class="cover-subtitle">THE WEDDING OF</h2>
+                    <h1 class="cover-title">Dyah & Aji</h1>
+                    <p class="cover-date">SENIN, 15 DESEMBER 2025</p>
                 </div>
-                <div class="unified-info">
-                  <h3 class="unified-name">Setyo Dyah Pramesti</h3>
-                  <div class="unified-details">
-                    <div class="detail-item">
-                      <i class="fas fa-female"></i>
-                      <span>Putri dari</span>
-                    </div>
-                    <p class="parents">
-                      Bpk. Narto (Sijeh) & Ibu Suwarni (Almh)
-                    </p>
-                  </div>
-                  <div class="unified-social">
-                    <a
-                      href="https://www.instagram.com/dyah.styo/"
-                      class="social-btn"
-                    >
-                      <i class="fab fa-instagram"></i>
-                      @dyah.styo
-                    </a>
-                  </div>
+
+                <div class="cover-invitation">
+                    <p>Kepada Yth:<br />Bpk/Ibu/Saudara/i</p>
+                    <h3 class="guest-name">Nama Tamu</h3>
+                    <p>Di Tempat</p>
                 </div>
-              </div>
 
-              <div class="couple-separator">
-                <i class="fas fa-heart"></i>
-              </div>
-
-              <div class="couple-card groom">
-                <div class="unified-image-container">
-                  <div class="oval-frame">
-                    <img
-                      src="assets/groom.jpg"
-                      alt="Aji Santoso"
-                      class="oval-image"
-                    />
-                  </div>
-                </div>
-                <div class="unified-info">
-                  <h3 class="unified-name">Aji Santoso</h3>
-                  <div class="unified-details">
-                    <div class="detail-item">
-                      <i class="fas fa-male"></i>
-                      <span>Putra dari</span>
-                    </div>
-                    <p class="parents">Bpk. Sugiyat & Ibu Gini</p>
-                  </div>
-                  <div class="unified-social">
-                    <a
-                      href="https://www.instagram.com/aji_rt/"
-                      class="social-btn"
-                    >
-                      <i class="fab fa-instagram"></i>
-                      @aji_rt
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="events" id="events">
-        <div class="container">
-          <div class="section-header" data-anim="fade-up">
-            <h2 class="section-title">Wedding Events</h2>
-            <p class="section-subtitle">
-              Acara pernikahan kami akan dilaksanakan pada:
-            </p>
-          </div>
-
-          <div class="event-grid">
-            <div class="event-card content-box" data-anim-stagger>
-              <div class="event-icon">
-                <i class="fas fa-ring"></i>
-              </div>
-              <h3>AKAD NIKAH</h3>
-              <div class="event-details">
-                <p><i class="far fa-calendar"></i> Senin, 15 Desember 2025</p>
-                <p><i class="far fa-clock"></i> 08.00 WIB - Selesai</p>
-                <p>
-                  <i class="fas fa-map-marker-alt"></i>
-                  Kediaman Mempelai Wanita
-                </p>
-                <p class="event-address">
-                  Bulu, Pondoksari, Nguntoronadi, Wonogiri
-                </p>
-              </div>
-              <a href="#locationMap" class="map-btn"
-                ><i class="fas fa-map-marker-alt"></i> Lihat Peta Lokasi</a
-              >
-            </div>
-
-            <div class="event-card content-box" data-anim-stagger>
-              <div class="event-icon">
-                <i class="fas fa-glass-cheers"></i>
-              </div>
-              <h3>RESEPSI</h3>
-              <div class="event-details">
-                <p><i class="far fa-calendar"></i> Senin, 15 DESEMBER 2025</p>
-                <p><i class="far fa-clock"></i> 11.00 WIB - Selesai</p>
-                <p>
-                  <i class="fas fa-map-marker-alt"></i>
-                  Kediaman Mempelai Wanita
-                </p>
-                <p class="event-address">
-                  Bulu, Pondoksari, Nguntoronadi, Wonogiri
-                </p>
-              </div>
-              <a href="#locationMap" class="map-btn"
-                ><i class="fas fa-map-marker-alt"></i> Lihat Peta Lokasi</a
-              >
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="location-map" id="locationMap">
-        <div class="container">
-          <div class="section-header" data-anim="fade-up">
-            <h2 class="section-title">Lokasi Acara</h2>
-            <p class="section-subtitle">
-              Tempat pelaksanaan akad nikah dan resepsi pernikahan kami
-            </p>
-          </div>
-
-          <div class="map-container content-box" data-anim="fade-up">
-            <div class="map-wrapper">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.789215434151!2d110.82847437501812!3d-7.905208192099219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7af77d6f1fb3a5%3A0xab2f5e7b04439b2a!2sBulu%2C%20Pondoksari%2C%20Kec.%20Nguntoronadi%2C%20Kabupaten%20Wonogiri%2C%20Jawa%20Tengah%2055683!5e0!3m2!1sid!2sid!4v1690000000000!5m2!1sid!2sid"
-                width="100%"
-                height="450"
-                style="border: 0"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                class="google-map"
-              >
-              </iframe>
-            </div>
-
-            <div class="map-actions">
-              <a
-                href="https://maps.google.com/?q=Bulu,Pondoksari,Nguntoronadi,Wonogiri"
-                target="_blank"
-                class="map-action-btn primary"
-              >
-                <i class="fas fa-directions"></i>
-                Buka di Google Maps
-              </a>
-              <button class="map-action-btn secondary" id="copyAddress">
-                <i class="far fa-copy"></i>
-                Salin Alamat
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="gift" id="gift">
-        <div class="container">
-          <div class="section-header" data-anim="fade-up">
-            <h2 class="section-title">Wedding Gift</h2>
-            <p class="section-subtitle">
-              Bagi bapak/ibu/saudara/i yang ingin mengirimkan hadiah pernikahan
-              dapat melalui nomer rekening di bawah ini
-            </p>
-          </div>
-
-          <div class="bank-accounts">
-            <div class="bank-card bri-card" data-anim-stagger>
-              <div class="card-header">
-                <div class="bank-logo">
-                  <img src="assets/bri.png" alt="BRI" />
-                </div>
-              </div>
-              <div class="card-number">1188 0100 8825 508</div>
-              <div class="account-name">Aji Santoso</div>
-              <div class="card-footer">
-                <button class="copy-btn" data-account="118801008825508">
-                  <i class="far fa-copy"></i> Salin
+                <button class="open-invitation-btn" id="openBtn">
+                    <i class="fas fa-envelope-open"></i>
+                    Buka Undangan
                 </button>
-              </div>
             </div>
 
-            <div class="bank-card dana-card" data-anim-stagger>
-              <div class="card-header">
-                <div class="bank-logo">
-                  <img src="assets/dana.png" alt="DANA" />
-                </div>
-              </div>
-              <div class="card-number">0813 2983 4033</div>
-              <div class="account-name">Setyo Dyah Pramesti</div>
-              <div class="card-footer">
-                <button class="copy-btn" data-account="081329834033">
-                  <i class="far fa-copy"></i> Salin
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="rsvp" id="rsvp">
-        <div class="container">
-          <div class="section-header" data-anim="fade-up">
-            <h2 class="section-title">Best Wishes</h2>
-            <p class="section-subtitle">
-              Sampaikan doa dan ucapan terbaik Anda
-            </p>
-          </div>
-
-          <div class="comment-list-container content-box" data-anim="fade-up">
-            <h3 style="text-align: center; margin-bottom: 1.5rem">
-              Ucapan Tamu
-            </h3>
-            <div id="commentList">
-              <p style="text-align: center; opacity: 0.7">Memuat ucapan...</p>
-            </div>
-          </div>
-          <form class="rsvp-form content-box" data-anim="fade-up">
-            <div class="form-group">
-              <input
-                type="text"
-                name="name"
-                placeholder="Nama Anda"
-                value="Nama Tamu"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <select name="attendance" required>
-                <option value="" disabled selected>Konfirmasi Kehadiran</option>
-                <option value="present">Hadir</option>
-                <option value="notpresent">Tidak Hadir</option>
-                <option value="notsure">Masih Ragu</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <textarea
-                name="message"
-                placeholder="Tulis ucapan"
-                rows="4"
-                required
-              ></textarea>
-            </div>
-            <button type="submit" class="submit-btn">
-              <i class="fas fa-paper-plane"></i> Kirim
+            <button class="cover-nav-btn prev" id="coverPrevBtn">
+                <i class="fas fa-chevron-left"></i>
             </button>
-          </form>
+            <button class="cover-nav-btn next" id="coverNextBtn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </section>
+
+        <main class="main-content" id="mainContent">
+            <section class="hero" id="hero">
+                <div class="hero-content">
+                    <div class="hero-text-wow">
+                        <h3 class="hero-subtitle-elegant">Save The Date</h3>
+
+                        <div class="hero-names-wow">
+                            <span class="hero-name-new" id="heroName1"
+                                >Dyah</span
+                            >
+                            <span class="hero-ampersand-new">&</span>
+                            <span class="hero-name-new" id="heroName2"
+                                >Aji</span
+                            >
+                        </div>
+
+                        <div class="hero-date-elegant">
+                            <span>15</span><span class="date-separator"></span
+                            ><span>12</span><span class="date-separator"></span
+                            ><span>2025</span>
+                        </div>
+
+                        <div class="countdown-new">
+                            <div class="countdown-timer-new">
+                                <div class="countdown-item-new">
+                                    <div class="countdown-number-new" id="days">
+                                        00
+                                    </div>
+                                    <div class="countdown-label-new">Hari</div>
+                                </div>
+                                <div class="countdown-item-new">
+                                    <div
+                                        class="countdown-number-new"
+                                        id="hours"
+                                    >
+                                        00
+                                    </div>
+                                    <div class="countdown-label-new">Jam</div>
+                                </div>
+                                <div class="countdown-item-new">
+                                    <div
+                                        class="countdown-number-new"
+                                        id="minutes"
+                                    >
+                                        00
+                                    </div>
+                                    <div class="countdown-label-new">Menit</div>
+                                </div>
+                                <div class="countdown-item-new">
+                                    <div
+                                        class="countdown-number-new"
+                                        id="seconds"
+                                    >
+                                        00
+                                    </div>
+                                    <div class="countdown-label-new">Detik</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="found-love" id="foundLove">
+                <div class="container">
+                    <div class="found-love-content">
+                        <h2 class="section-title" data-anim="fade-up">
+                            We Found Love
+                        </h2>
+                        <div class="content-box" data-anim="fade-up">
+                            <blockquote class="verse-text">
+                                "Dan di antara tanda-tanda kekuasaan-Nya
+                                diciptakan-Nya untukmu pasangan hidup dari
+                                jenismu sendiri supaya kamu dapat ketenangan
+                                hati dan dijadikannya kasih sayang di antara
+                                kamu. Sesungguhnya yang demikian menjadi
+                                tanda-tanda kebesaran-Nya bagi orang-orang yang
+                                berpikir."
+                            </blockquote>
+                            <p class="verse-source">QS. Ar-Rum Ayat 21</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="couple" id="couple">
+                <div class="container">
+                    <div class="section-header" data-anim="fade-up">
+                        <h2 class="section-title">Bride & Groom</h2>
+                    </div>
+
+                    <div class="unified-frame content-box" data-anim="fade-up">
+                        <div class="islamic-greeting-frame">
+                            <div class="islamic-greeting">
+                                <p>
+                                    Assalamu'alaikum Warahmatullahi Wabarakatuh
+                                </p>
+                            </div>
+                            <p class="unified-subtitle">
+                                Dengan memohon rahmat dan ridho Allah Swt. kami
+                                bermaksud mengundang Bapak/Ibu/Saudara/i untuk
+                                menghadiri acara pernikahan kami:
+                            </p>
+                        </div>
+
+                        <div class="couple-inner-container">
+                            <div class="couple-card bride">
+                                <div class="unified-image-container">
+                                    <div class="oval-frame">
+                                        <img
+                                            src="assets/bride.jpg"
+                                            alt="Setyo Dyah Pramesti"
+                                            class="oval-image"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="unified-info">
+                                    <h3 class="unified-name">
+                                        Setyo Dyah Pramesti
+                                    </h3>
+                                    <div class="unified-details">
+                                        <div class="detail-item">
+                                            <i class="fas fa-female"></i>
+                                            <span>Putri dari</span>
+                                        </div>
+                                        <p class="parents">
+                                            Bpk. Narto (Sijeh) & Ibu Suwarni
+                                            (Almh)
+                                        </p>
+                                        <div class="detail-item address-item">
+                                            <i
+                                                class="fas fa-map-marker-alt"
+                                            ></i>
+                                            <span>
+                                                Bulu, Pondoksari, Nguntoronadi,
+                                                Wonogiri
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="unified-social">
+                                        <a
+                                            href="https://www.instagram.com/dyah.styo/"
+                                            class="social-btn"
+                                        >
+                                            <i class="fab fa-instagram"></i>
+                                            @dyah.styo
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="couple-separator">
+                                <i class="fas fa-heart"></i>
+                            </div>
+
+                            <div class="couple-card groom">
+                                <div class="unified-image-container">
+                                    <div class="oval-frame">
+                                        <img
+                                            src="assets/groom.jpg"
+                                            alt="Aji Santoso"
+                                            class="oval-image"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="unified-info">
+                                    <h3 class="unified-name">Aji Santoso</h3>
+                                    <div class="unified-details">
+                                        <div class="detail-item">
+                                            <i class="fas fa-male"></i>
+                                            <span>Putra dari</span>
+                                        </div>
+                                        <p class="parents">
+                                            Bpk. Sugiyat & Ibu Gini
+                                        </p>
+                                        <div class="detail-item address-item">
+                                            <i
+                                                class="fas fa-map-marker-alt"
+                                            ></i>
+                                            <span>
+                                                Jatiroto, Semin, Nguntoronadi,
+                                                Wonogiri
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="unified-social">
+                                        <a
+                                            href="https://www.instagram.com/aji_rt/"
+                                            class="social-btn"
+                                        >
+                                            <i class="fab fa-instagram"></i>
+                                            @aji_rt
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="events" id="events">
+                <div class="container">
+                    <div class="section-header" data-anim="fade-up">
+                        <h2 class="section-title">Wedding Events</h2>
+                        <p class="section-subtitle">
+                            Acara pernikahan kami akan dilaksanakan pada:
+                        </p>
+                    </div>
+
+                    <div class="event-grid">
+                        <div class="event-card content-box" data-anim-stagger>
+                            <div class="event-icon">
+                                <i class="fas fa-ring"></i>
+                            </div>
+                            <h3>AKAD NIKAH</h3>
+                            <div class="event-details">
+                                <p>
+                                    <i class="far fa-calendar"></i> Senin, 15
+                                    Desember 2025
+                                </p>
+                                <p>
+                                    <i class="far fa-clock"></i> 08.00 WIB -
+                                    Selesai
+                                </p>
+                                <p>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Kediaman Mempelai Wanita
+                                </p>
+                                <p class="event-address">
+                                    Bulu, Pondoksari, Nguntoronadi, Wonogiri
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="event-card content-box" data-anim-stagger>
+                            <div class="event-icon">
+                                <i class="fas fa-glass-cheers"></i>
+                            </div>
+                            <h3>RESEPSI</h3>
+                            <div class="event-details">
+                                <p>
+                                    <i class="far fa-calendar"></i> Senin, 15
+                                    DESEMBER 2025
+                                </p>
+                                <p>
+                                    <i class="far fa-clock"></i> 11.00 WIB -
+                                    Selesai
+                                </p>
+                                <p>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Kediaman Mempelai Wanita
+                                </p>
+                                <p class="event-address">
+                                    Bulu, Pondoksari, Nguntoronadi, Wonogiri
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="location-map" id="locationMap">
+                <div class="container">
+                    <div class="section-header" data-anim="fade-up">
+                        <h2 class="section-title">Lokasi Acara</h2>
+                        <p class="section-subtitle">
+                            Tempat pelaksanaan akad nikah dan resepsi pernikahan
+                            kami
+                        </p>
+                    </div>
+
+                    <div class="map-container content-box" data-anim="fade-up">
+                        <div class="map-wrapper">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.789215434151!2d110.82847437501812!3d-7.905208192099219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7af77d6f1fb3a5%3A0xab2f5e7b04439b2a!2sBulu%2C%20Pondoksari%2C%20Kec.%20Nguntoronadi%2C%20Kabupaten%20Wonogiri%2C%20Jawa%20Tengah%2055683!5e0!3m2!1sid!2sid!4v1690000000000!5m2!1sid!2sid"
+                                width="100%"
+                                height="450"
+                                style="border: 0"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                class="google-map"
+                            >
+                            </iframe>
+                        </div>
+
+                        <div class="map-actions">
+                            <a
+                                href="https://maps.google.com/?q=Bulu,Pondoksari,Nguntoronadi,Wonogiri"
+                                target="_blank"
+                                class="map-action-btn primary"
+                            >
+                                <i class="fas fa-directions"></i>
+                                Buka di Google Maps
+                            </a>
+                            <button
+                                class="map-action-btn secondary"
+                                id="copyAddress"
+                            >
+                                <i class="far fa-copy"></i>
+                                Salin Alamat
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="gift" id="gift">
+                <div class="container">
+                    <div class="section-header" data-anim="fade-up">
+                        <h2 class="section-title">Wedding Gift</h2>
+                        <p class="section-subtitle">
+                            Bagi bapak/ibu/saudara/i yang ingin mengirimkan
+                            hadiah pernikahan dapat melalui nomer rekening di
+                            bawah ini
+                        </p>
+                    </div>
+
+                    <div class="bank-accounts">
+                        <div class="bank-card bri-card" data-anim-stagger>
+                            <div class="card-header">
+                                <div class="bank-logo">
+                                    <img src="assets/bri.png" alt="BRI" />
+                                </div>
+                            </div>
+                            <div class="card-number">1188 0100 8825 508</div>
+                            <div class="account-name">Aji Santoso</div>
+                            <div class="card-footer">
+                                <button
+                                    class="copy-btn"
+                                    data-account="118801008825508"
+                                >
+                                    <i class="far fa-copy"></i> Salin
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bank-card dana-card" data-anim-stagger>
+                            <div class="card-header">
+                                <div class="bank-logo">
+                                    <img src="assets/dana.png" alt="DANA" />
+                                </div>
+                            </div>
+                            <div class="card-number">0813 2983 4033</div>
+                            <div class="account-name">Setyo Dyah Pramesti</div>
+                            <div class="card-footer">
+                                <button
+                                    class="copy-btn"
+                                    data-account="081329834033"
+                                >
+                                    <i class="far fa-copy"></i> Salin
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="rsvp" id="rsvp">
+                <div class="container">
+                    <div class="section-header" data-anim="fade-up">
+                        <h2 class="section-title">Best Wishes</h2>
+                        <p class="section-subtitle">
+                            Sampaikan doa dan ucapan terbaik Anda
+                        </p>
+                    </div>
+
+                    <div
+                        class="comment-list-container content-box"
+                        data-anim="fade-up"
+                    >
+                        <h3 style="text-align: center; margin-bottom: 1.5rem">
+                            Ucapan Tamu
+                        </h3>
+                        <div id="commentList">
+                            <p style="text-align: center; opacity: 0.7">
+                                Memuat ucapan...
+                            </p>
+                        </div>
+                    </div>
+                    <form class="rsvp-form content-box" data-anim="fade-up">
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Nama Anda"
+                                value="Nama Tamu"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <select name="attendance" required>
+                                <option value="" disabled selected>
+                                    Konfirmasi Kehadiran
+                                </option>
+                                <option value="present">Hadir</option>
+                                <option value="notpresent">Tidak Hadir</option>
+                                <option value="notsure">Masih Ragu</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea
+                                name="message"
+                                placeholder="Tulis ucapan"
+                                rows="4"
+                                required
+                            ></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Kirim
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-content" data-anim="fade-up">
+                        <p>
+                            Merupakan suatu kebahagiaan dan kehormatan bagi
+                            kami, apabila Bapak/Ibu/Saudara/i, berkenan hadir
+                            dan memberikan do'a restu kepada kami.
+                        </p>
+                        <h3>KAMI YANG BERBAHAGIA</h3>
+                        <h2>Dyah & Aji</h2>
+                    </div>
+                </div>
+            </footer>
+        </main>
+
+        <div class="music-player" id="musicPlayer">
+            <button class="music-toggle" id="musicToggle">
+                <i class="fas fa-music"></i>
+            </button>
+            <audio id="weddingMusic" loop>
+                <source src="assets/music.mp3" type="audio/mpeg" />
+            </audio>
         </div>
-      </section>
 
-      <footer class="footer">
-        <div class="container">
-          <div class="footer-content" data-anim="fade-up">
-            <p>
-              Merupakan suatu kebahagiaan dan kehormatan bagi kami, apabila
-              Bapak/Ibu/Saudara/i, berkenan hadir dan memberikan do'a restu
-              kepada kami.
-            </p>
-            <h3>KAMI YANG BERBAHAGIA</h3>
-            <h2>Dyah & Aji</h2>
-          </div>
-        </div>
-      </footer>
-    </main>
-
-    <div class="music-player" id="musicPlayer">
-      <button class="music-toggle" id="musicToggle">
-        <i class="fas fa-music"></i>
-      </button>
-      <audio id="weddingMusic" loop>
-        <source src="assets/music.mp3" type="audio/mpeg" />
-      </audio>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
