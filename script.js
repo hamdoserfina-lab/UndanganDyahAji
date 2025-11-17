@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Inisialisasi
     initializeCountdown();
-    initializeCoverCarousel();
     initializeHeroCarousel();
     loadComments();
 
@@ -39,35 +38,35 @@ document.addEventListener("DOMContentLoaded", function () {
         opacity: 1,
         y: 0,
         delay: 0.5,
-        ease: "power2.out",
+        ease: "power2.out"
     });
     gsap.to(".cover-title", {
         duration: 1,
         opacity: 1,
         y: 0,
         delay: 0.8,
-        ease: "power2.out",
+        ease: "power2.out"
     });
     gsap.to(".cover-date", {
         duration: 1,
         opacity: 1,
         y: 0,
         delay: 1.1,
-        ease: "power2.out",
+        ease: "power2.out"
     });
     gsap.to(".cover-invitation", {
         duration: 1,
         opacity: 1,
         y: 0,
         delay: 1.4,
-        ease: "power2.out",
+        ease: "power2.out"
     });
     gsap.to(".open-invitation-btn", {
         duration: 1,
         opacity: 1,
         y: 0,
         delay: 1.7,
-        ease: "power2.out",
+        ease: "power2.out"
     });
 
     // Event listener untuk tombol buka undangan
@@ -92,19 +91,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     gsap.to(mainContent, {
                         duration: 1,
                         opacity: 1,
-                        ease: "power2.out",
+                        ease: "power2.out"
                     });
 
                     // Memulai animasi Hero & Scroll
                     animateHeroSection(); // Animasi "Wow" untuk Hero
-                    
+
                     // MODIFIKASI: Mengembalikan fungsi animasi asli
                     initializeScrollAnimations(); // Animasi "fade-up" untuk sisa section
 
                     window.scrollTo(0, 0);
                     playMusic();
                 }, 1500);
-            },
+            }
         });
     });
 
@@ -116,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
             opacity: 1,
             y: 0,
             duration: 1,
-            ease: "power3.out",
+            ease: "power3.out"
         })
             .to(
                 "#heroName1",
@@ -134,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     opacity: 1,
                     scale: 1,
                     duration: 1,
-                    ease: "elastic.out(1, 0.7)",
+                    ease: "elastic.out(1, 0.7)"
                 },
                 "-=0.5"
             )
@@ -150,11 +149,10 @@ document.addEventListener("DOMContentLoaded", function () {
             );
     }
 
-
     // --- MODIFIKASI: FUNGSI ANIMASI ASLI DIKEMBALIKAN ---
     // Ini adalah fungsi dari file script.js pertama Anda
     function initializeScrollAnimations() {
-        gsap.utils.toArray('[data-anim="fade-up"]').forEach((elem) => {
+        gsap.utils.toArray('[data-anim="fade-up"]').forEach(elem => {
             gsap.fromTo(
                 elem,
                 { opacity: 0, y: 50 },
@@ -166,8 +164,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     scrollTrigger: {
                         trigger: elem,
                         start: "top 85%",
-                        toggleActions: "play none none reverse",
-                    },
+                        toggleActions: "play none none reverse"
+                    }
                 }
             );
         });
@@ -183,12 +181,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 scrollTrigger: {
                     trigger: ".couple-inner-container",
                     start: "top 80%",
-                    toggleActions: "play none none reverse",
-                },
+                    toggleActions: "play none none reverse"
+                }
             }
         );
 
-        gsap.utils.toArray("[data-anim-stagger]").forEach((elem) => {
+        gsap.utils.toArray("[data-anim-stagger]").forEach(elem => {
             gsap.fromTo(
                 elem,
                 { opacity: 0, y: 50 },
@@ -200,47 +198,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     scrollTrigger: {
                         trigger: elem.parentElement, // Perhatikan trigger-nya
                         start: "top 80%",
-                        toggleActions: "play none none reverse",
-                    },
+                        toggleActions: "play none none reverse"
+                    }
                 }
             );
         });
     }
     // --- AKHIR FUNGSI ANIMASI ASLI ---
-
-
-    // --- FUNGSI CAROUSEL COVER (Manual) ---
-    function initializeCoverCarousel() {
-        const coverCarousel = document.getElementById("coverCarousel");
-        if (!coverCarousel) return;
-        const bgSlides = coverCarousel.querySelectorAll(".bg-slide");
-        const prevBtn = document.getElementById("coverPrevBtn");
-        const nextBtn = document.getElementById("coverNextBtn");
-        if (bgSlides.length === 0) return;
-        let currentBgSlide = 0;
-        function setActiveBgSlide(index) {
-            bgSlides.forEach((slide) => slide.classList.remove("active"));
-            bgSlides[index].classList.add("active");
-            currentBgSlide = index;
-        }
-        function nextBgSlide() {
-            let nextIndex = currentBgSlide + 1;
-            if (nextIndex >= bgSlides.length) {
-                nextIndex = 0;
-            }
-            setActiveBgSlide(nextIndex);
-        }
-        function prevBgSlide() {
-            let prevIndex = currentBgSlide - 1;
-            if (prevIndex < 0) {
-                prevIndex = bgSlides.length - 1;
-            }
-            setActiveBgSlide(prevIndex);
-        }
-        nextBtn.addEventListener("click", nextBgSlide);
-        prevBtn.addEventListener("click", prevBgSlide);
-        setActiveBgSlide(0);
-    }
 
     // --- FUNGSI CAROUSEL HERO (Autoplay, tanpa tombol) ---
     function initializeHeroCarousel() {
@@ -253,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let currentBgSlide = 0;
         let bgAutoplayInterval;
         function setActiveBgSlide(index) {
-            bgSlides.forEach((slide) => slide.classList.remove("active"));
+            bgSlides.forEach(slide => slide.classList.remove("active"));
             bgSlides[index].classList.add("active");
             currentBgSlide = index;
         }
@@ -319,7 +283,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 isMusicPlaying = true;
                 musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
             })
-            .catch((error) => {
+            .catch(error => {
                 console.log("Autoplay dicegah:", error);
                 isMusicPlaying = false;
                 musicToggle.innerHTML = '<i class="fas fa-music"></i>';
@@ -338,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // --- FUNGSI COPY (Tidak Berubah) ---
-    document.querySelectorAll(".copy-btn").forEach((button) => {
+    document.querySelectorAll(".copy-btn").forEach(button => {
         button.addEventListener("click", function () {
             const accountNumber = this.getAttribute("data-account");
             navigator.clipboard.writeText(accountNumber).then(() => {
@@ -397,10 +361,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     nama: name,
                     kehadiran: attendance,
                     ucapan: message,
-                    timestamp:
-                        firebase.firestore.FieldValue.serverTimestamp(),
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 })
-                .then((docRef) => {
+                .then(docRef => {
                     submitBtn.innerHTML =
                         '<i class="fas fa-check"></i> Terkirim!';
                     rsvpForm.reset();
@@ -412,7 +375,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         submitBtn.disabled = false;
                     }, 3000);
                 })
-                .catch((error) => {
+                .catch(error => {
                     console.error("Error adding document: ", error);
                     alert("Gagal mengirim ucapan, silakan coba lagi.");
                     submitBtn.innerHTML = originalBtnText;
@@ -440,7 +403,7 @@ function loadComments() {
 
     db.collection("ucapan")
         .orderBy("timestamp", "desc")
-        .onSnapshot((querySnapshot) => {
+        .onSnapshot(querySnapshot => {
             if (querySnapshot.empty) {
                 commentList.innerHTML =
                     "<p style='text-align: center; opacity: 0.7;'>Jadilah yang pertama memberi ucapan!</p>";
@@ -449,7 +412,7 @@ function loadComments() {
 
             commentList.innerHTML = "";
 
-            querySnapshot.forEach((doc) => {
+            querySnapshot.forEach(doc => {
                 const data = doc.data();
                 let attendanceLabel = "";
                 if (data.kehadiran === "present") {

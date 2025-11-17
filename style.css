@@ -225,59 +225,6 @@ h6 {
   margin-right: 0.8rem;
   font-size: 1.1rem;
 }
-
-/* =================================== */
-/* Tombol Navigasi Cover (Animasi Pulse) */
-/* =================================== */
-.cover-nav-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.7);
-  cursor: pointer;
-  font-size: 2.5rem;
-  transition: var(--transition);
-  z-index: 6;
-  padding: 1rem;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-  opacity: 0; /* Mulai dari hilang */
-  animation: hintPulse 5s infinite ease-in-out; /* Animasi loop 5 detik */
-  animation-delay: 3s; /* Mulai setelah 3 detik */
-}
-.cover-nav-btn:hover {
-  color: var(--white);
-  transform: translateY(-50%) scale(1.1);
-  animation: none; /* Hentikan animasi saat di-hover */
-  opacity: 1; /* Tampilkan penuh saat hover */
-}
-.cover-nav-btn.prev {
-  left: 15px;
-}
-.cover-nav-btn.next {
-  right: 15px;
-}
-
-/* Animasi untuk petunjuk navigasi */
-@keyframes hintPulse {
-  0% {
-    opacity: 0;
-    transform: translateY(-50%) scale(1);
-  }
-  20% {
-    opacity: 1;
-    transform: translateY(-50%) scale(1.1);
-  } /* Muncul dan membesar */
-  40% {
-    opacity: 0;
-    transform: translateY(-50%) scale(1);
-  } /* Hilang */
-  100% {
-    opacity: 0;
-  } /* Tetap hilang */
-}
-
 /* =================================== */
 /* Main Content Wrap */
 /* =================================== */
