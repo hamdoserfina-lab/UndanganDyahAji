@@ -924,6 +924,9 @@ function fallbackCopyToClipboard(text, element) {
   document.body.removeChild(textArea);
 }
 
+// =================================== //
+// PERBAIKAN: FUNGSI showCopySuccess
+// =================================== //
 function showCopySuccess(element) {
   const originalHTML = element.innerHTML;
   const originalBackground = element.style.background;
@@ -936,22 +939,28 @@ function showCopySuccess(element) {
     repeat: 1,
     ease: "power2.inOut",
     onStart: () => {
-      if (element.classList.contains("copy-btn")) {
+      // PERBAIKAN LOGIKA:
+      // Sekarang, ia akan menangani .copy-btn DAN #copyAddress
+      if (element.classList.contains("copy-btn") || element.id === "copyAddress") {
         element.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
         element.style.background = "var(--gradient)";
         element.style.color = "var(--white)";
       } else {
+        // Logika untuk icon (copy-icon)
         element.className = "fas fa-check";
         element.style.color = "#4CAF50";
       }
     },
     onComplete: () => {
       setTimeout(() => {
-        if (element.classList.contains("copy-btn")) {
+        // PERBAIKAN LOGIKA:
+        // Memastikan reset-nya juga berlaku untuk #copyAddress
+        if (element.classList.contains("copy-btn") || element.id === "copyAddress") {
           element.innerHTML = originalHTML;
           element.style.background = originalBackground;
           element.style.color = originalColor;
         } else {
+          // Reset icon
           element.className = "fas fa-copy copy-icon";
           element.style.color = "";
         }
@@ -960,6 +969,9 @@ function showCopySuccess(element) {
   });
 }
 
+// =================================== //
+// PERBAIKAN: FUNGSI showCopyError
+// =================================== //
 function showCopyError(element) {
   const originalHTML = element.innerHTML;
   const originalBackground = element.style.background;
@@ -971,14 +983,18 @@ function showCopyError(element) {
     repeat: 1,
     ease: "power2.inOut",
     onStart: () => {
-      if (element.classList.contains("copy-btn")) {
+      // PERBAIKAN LOGIKA:
+      // Menerapkan perbaikan yang sama di sini
+      if (element.classList.contains("copy-btn") || element.id === "copyAddress") {
         element.innerHTML = '<i class="fas fa-times"></i> Gagal!';
         element.style.background = "#ff4444";
       }
     },
     onComplete: () => {
       setTimeout(() => {
-        if (element.classList.contains("copy-btn")) {
+        // PERBAIKAN LOGIKA:
+        // Menerapkan reset yang sama di sini
+        if (element.classList.contains("copy-btn") || element.id === "copyAddress") {
           element.innerHTML = originalHTML;
           element.style.background = originalBackground;
         }
