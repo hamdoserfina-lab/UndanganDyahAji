@@ -3,12 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Wedding Of DYAH & AJI</title>
+    <title>The Wedding Of DYAH & AJI </title>
 
-    <meta property="og:title" content="Undangan Pernikahan Dyah & Aji" />
+    <meta
+      property="og:title"
+      content="Undangan Pernikahan Premium Dyah & Aji"
+    />
     <meta
       property="og:description"
-      content="Silakan buka undangan pernikahan Dyah & Aji. Klik untuk melihat detail acara."
+      content="Dengan penuh kebahagiaan, kami mengundang Anda untuk merayakan hari istimewa kami."
     />
     <meta
       property="og:image"
@@ -20,40 +23,51 @@
     />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@300;400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
     <div class="hero-background">
       <div class="hero-bg-carousel">
         <div class="bg-slide active bg-1"></div>
-        <div class="bg-slide bg-2"></div>
-        <div class="bg-slide bg-3"></div>
       </div>
+      <div class="bg-overlay"></div>
     </div>
 
-    <section class="cover" id="cover">
-      <div class="parallax-background">
-  <div class="hero-bg-carousel"> <div class="bg-slide active bg-1"></div>
-  </div>
-</div>
+    <nav class="floating-nav" id="floatingNav">
+      <div class="nav-container">
+        <a href="#hero" class="nav-logo">D&A</a>
+        <div class="nav-links">
+          <a href="#couple" class="nav-link">Couple</a>
+          <a href="#events" class="nav-link">Events</a>
+          <a href="#gallery" class="nav-link">Gallery</a>
+          <a href="#rsvp" class="nav-link">RSVP</a>
+        </div>
+      </div>
+    </nav>
 
+    <section class="cover" id="cover">
+      <div class="cover-background">
+        <div class="bg-slide active bg-cover"></div>
+      </div>
 
       <div class="cover-content">
         <div class="cover-text">
           <h2 class="cover-subtitle">THE WEDDING OF</h2>
           <h1 class="cover-title">Dyah & Aji</h1>
-          <p class="cover-date">SENIN, 15 DESEMBER 2025</p>
+          <p class="cover-date">SENIN, 15 DESEMBER <br />2025</p>
         </div>
 
         <div class="cover-invitation">
@@ -68,43 +82,48 @@
         </button>
       </div>
 
-
+      <div class="scroll-indicator">
+        <div class="scroll-line"></div>
+      </div>
     </section>
 
     <main class="main-content" id="mainContent">
       <section class="hero" id="hero">
-        <div class="hero-content">
-          <div class="hero-text-wow">
-            <h3 class="hero-subtitle-elegant">Save The Date</h3>
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-text-wow">
+              <h3 class="hero-subtitle-elegant">Save The Date</h3>
 
-            <div class="hero-names-wow">
-              <span class="hero-name-new" id="heroName1">Dyah</span>
-              <span class="hero-ampersand-new">&</span>
-              <span class="hero-name-new" id="heroName2">Aji</span>
-            </div>
+              <div class="hero-names-wow">
+                <span class="hero-name-new" id="heroName1">Dyah</span>
+                <span class="hero-ampersand-new">&</span>
+                <span class="hero-name-new" id="heroName2">Aji</span>
+              </div>
 
-            <div class="hero-date-elegant">
-              <span>15</span><span class="date-separator"></span><span>12</span
-              ><span class="date-separator"></span><span>2025</span>
-            </div>
+              <div class="hero-date-elegant">
+                <span>15</span><span class="date-separator"></span>
+                <span>12</span><span class="date-separator"></span>
+                <span>2025</span>
+              </div>
 
-            <div class="countdown-new">
-              <div class="countdown-timer-new">
-                <div class="countdown-item-new">
-                  <div class="countdown-number-new" id="days">00</div>
-                  <div class="countdown-label-new">Hari</div>
-                </div>
-                <div class="countdown-item-new">
-                  <div class="countdown-number-new" id="hours">00</div>
-                  <div class="countdown-label-new">Jam</div>
-                </div>
-                <div class="countdown-item-new">
-                  <div class="countdown-number-new" id="minutes">00</div>
-                  <div class="countdown-label-new">Menit</div>
-                </div>
-                <div class="countdown-item-new">
-                  <div class="countdown-number-new" id="seconds">00</div>
-                  <div class="countdown-label-new">Detik</div>
+              <div class="countdown-new">
+                <div class="countdown-timer-new">
+                  <div class="countdown-item-new">
+                    <div class="countdown-number-new" id="days">00</div>
+                    <div class="countdown-label-new">Hari</div>
+                  </div>
+                  <div class="countdown-item-new">
+                    <div class="countdown-number-new" id="hours">00</div>
+                    <div class="countdown-label-new">Jam</div>
+                  </div>
+                  <div class="countdown-item-new">
+                    <div class="countdown-number-new" id="minutes">00</div>
+                    <div class="countdown-label-new">Menit</div>
+                  </div>
+                  <div class="countdown-item-new">
+                    <div class="countdown-number-new" id="seconds">00</div>
+                    <div class="countdown-label-new">Detik</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -115,7 +134,9 @@
       <section class="found-love" id="foundLove">
         <div class="container">
           <div class="found-love-content">
-            <h2 class="section-title" data-anim="fade-up">We Found Love</h2>
+            <div class="section-header" data-anim="fade-up">
+              <h2 class="section-title">We Found Love</h2>
+            </div>
             <div class="content-box" data-anim="fade-up">
               <blockquote class="verse-text">
                 "Dan di antara tanda-tanda kekuasaan-Nya diciptakan-Nya untukmu
@@ -134,12 +155,17 @@
         <div class="container">
           <div class="section-header" data-anim="fade-up">
             <h2 class="section-title">Bride & Groom</h2>
+            <p class="section-subtitle">
+              Dua hati yang dipersatukan dalam ikatan suci
+            </p>
           </div>
 
           <div class="unified-frame content-box" data-anim="fade-up">
             <div class="islamic-greeting-frame">
               <div class="islamic-greeting">
-                <p>Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
+                <p class="arabic-text" lang="ar">
+                  السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ
+                </p>
               </div>
               <p class="unified-subtitle">
                 Dengan memohon rahmat dan ridho Allah Swt. kami bermaksud
@@ -157,6 +183,7 @@
                       alt="Setyo Dyah Pramesti"
                       class="oval-image"
                     />
+                    <div class="image-overlay"></div>
                   </div>
                 </div>
                 <div class="unified-info">
@@ -171,7 +198,7 @@
                     </p>
                     <div class="detail-item address-item">
                       <i class="fas fa-map-marker-alt"></i>
-                      <span> Bulu, Pondoksari, Nguntoronadi, Wonogiri </span>
+                      <span>Bulu, Pondoksari, Nguntoronadi, Wonogiri</span>
                     </div>
                   </div>
                   <div class="unified-social">
@@ -187,7 +214,9 @@
               </div>
 
               <div class="couple-separator">
-                <i class="fas fa-heart"></i>
+                <div class="heart-pulse">
+                  <i class="fas fa-heart"></i>
+                </div>
               </div>
 
               <div class="couple-card groom">
@@ -198,6 +227,7 @@
                       alt="Aji Santoso"
                       class="oval-image"
                     />
+                    <div class="image-overlay"></div>
                   </div>
                 </div>
                 <div class="unified-info">
@@ -210,7 +240,7 @@
                     <p class="parents">Bpk. Sugiyat & Ibu Gini</p>
                     <div class="detail-item address-item">
                       <i class="fas fa-map-marker-alt"></i>
-                      <span> Jatiroto, Semin, Nguntoronadi, Wonogiri </span>
+                      <span>Jatiroto, Semin, Nguntoronadi, Wonogiri</span>
                     </div>
                   </div>
                   <div class="unified-social">
@@ -248,8 +278,7 @@
                 <p><i class="far fa-calendar"></i> Senin, 15 Desember 2025</p>
                 <p><i class="far fa-clock"></i> 08.00 WIB - Selesai</p>
                 <p>
-                  <i class="fas fa-map-marker-alt"></i>
-                  Kediaman Mempelai Wanita
+                  <i class="fas fa-map-marker-alt"></i> Kediaman Mempelai Wanita
                 </p>
                 <p class="event-address">
                   Bulu, Pondoksari, Nguntoronadi, Wonogiri
@@ -266,8 +295,7 @@
                 <p><i class="far fa-calendar"></i> Senin, 15 DESEMBER 2025</p>
                 <p><i class="far fa-clock"></i> 11.00 WIB - Selesai</p>
                 <p>
-                  <i class="fas fa-map-marker-alt"></i>
-                  Kediaman Mempelai Wanita
+                  <i class="fas fa-map-marker-alt"></i> Kediaman Mempelai Wanita
                 </p>
                 <p class="event-address">
                   Bulu, Pondoksari, Nguntoronadi, Wonogiri
@@ -290,7 +318,7 @@
           <div class="map-container content-box" data-anim="fade-up">
             <div class="map-wrapper">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.789215434151!2d110.82847437501812!3d-7.905208192099219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7af77d6f1fb3a5%3A0xab2f5e7b04439b2a!2sBulu%2C%20Pondoksari%2C%20Kec.%20Nguntoronadi%2C%20Kabupaten%20Wonogiri%2C%20Jawa%20Tengah%2055683!5e0!3m2!1sid!2sid!4v1690000000000!5m2!1sid!2sid"
+                src="https://maps.google.com/maps?q=Bulu%2C%20Pondoksari%2C%20Nguntoronadi%2C%20Wonogiri&t=&z=13&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="450"
                 style="border: 0"
@@ -304,7 +332,7 @@
 
             <div class="map-actions">
               <a
-                href="https://maps.google.com/?q=Bulu,Pondoksari,Nguntoronadi,Wonogiri"
+                href="https://maps.app.goo.gl/4BdkirmML3fdnSrQA"
                 target="_blank"
                 class="map-action-btn primary"
               >
@@ -317,6 +345,43 @@
               </button>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section class="gallery" id="gallery">
+        <div class="container">
+          <div class="section-header" data-anim="fade-up">
+            <h2 class="section-title">Our Gallery</h2>
+            <p class="section-subtitle">
+              Momen-momen berharga dalam perjalanan kami
+            </p>
+          </div>
+
+          <div class="gallery-carousel-container" data-anim="fade-up">
+            <div class="gallery-track" id="galleryTrack">
+              <div class="gallery-item">
+                <img
+                  src="assets/gallery-1.jpg"
+                  alt="Gallery 1"
+                  class="gallery-image"
+                />
+              </div>
+              <div class="gallery-item">
+                <img
+                  src="assets/gallery-2.jpg"
+                  alt="Gallery 2"
+                  class="gallery-image"
+                />
+              </div>
+              <div class="gallery-item">
+                <img
+                  src="assets/gallery-3.jpg"
+                  alt="Gallery 3"
+                  class="gallery-image"
+                />
+              </div>
+              </div>
+            </div>
         </div>
       </section>
 
@@ -336,6 +401,7 @@
                 <div class="bank-logo">
                   <img src="assets/bri.png" alt="BRI" />
                 </div>
+                <i class="fas fa-copy copy-icon"></i>
               </div>
               <div class="card-number">1188 0100 8825 508</div>
               <div class="account-name">Aji Santoso</div>
@@ -351,6 +417,7 @@
                 <div class="bank-logo">
                   <img src="assets/dana.png" alt="DANA" />
                 </div>
+                <i class="fas fa-copy copy-icon"></i>
               </div>
               <div class="card-number">0813 2983 4033</div>
               <div class="account-name">Setyo Dyah Pramesti</div>
@@ -381,6 +448,7 @@
               <p style="text-align: center; opacity: 0.7">Memuat ucapan...</p>
             </div>
           </div>
+
           <form class="rsvp-form content-box" data-anim="fade-up">
             <div class="form-group">
               <input
@@ -402,13 +470,13 @@
             <div class="form-group">
               <textarea
                 name="message"
-                placeholder="Tulis ucapan"
+                placeholder="Tulis ucapan dan doa terbaik Anda..."
                 rows="4"
                 required
               ></textarea>
             </div>
             <button type="submit" class="submit-btn">
-              <i class="fas fa-paper-plane"></i> Kirim
+              <i class="fas fa-paper-plane"></i> Kirim Ucapan
             </button>
           </form>
         </div>
@@ -424,28 +492,55 @@
             </p>
             <h3>KAMI YANG BERBAHAGIA</h3>
             <h2>Dyah & Aji</h2>
+
+            <div class="footer-notes">
+              <p>Thank you for being part of our special day</p>
+            </div>
           </div>
         </div>
       </footer>
     </main>
 
     <div class="music-player" id="musicPlayer">
-      <button class="music-toggle" id="musicToggle">
-        <i class="fas fa-music"></i>
-      </button>
+      <div class="music-container">
+        <button class="music-toggle" id="musicToggle">
+          <i class="fas fa-music"></i>
+        </button>
+        <div class="music-info">
+          <span class="music-title">Wedding Music</span>
+          <div class="music-progress">
+            <div class="progress-bar"></div>
+          </div>
+        </div>
+      </div>
       <audio id="weddingMusic" loop>
         <source src="assets/music.mp3" type="audio/mpeg" />
       </audio>
     </div>
 
+    <div class="lightbox" id="lightbox">
+      <div class="lightbox-content">
+        <img src="" alt="" class="lightbox-image" />
+        <button class="lightbox-close" id="lightboxClose">
+          <i class="fas fa-times"></i>
+        </button>
+        <button class="lightbox-nav lightbox-prev">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="lightbox-nav lightbox-next">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
     <script>
-      // Config Firebase Anda (ini sudah benar)
+      // PERINGATAN: Kunci API Anda terekspos di sini.
+      // Harap gunakan Aturan Keamanan (Security Rules) dan App Check di Firebase.
       const firebaseConfig = {
         apiKey: "AIzaSyDqFTzp0PNQORrEShOofAHawejevLwbyQg",
         authDomain: "undangan-ojlo.firebaseapp.com",
@@ -455,11 +550,7 @@
         appId: "1:293262307556:web:576e1b0d3b17e9dbf3bcf1",
         measurementId: "G-B6BRP95W3S",
       };
-
-      // Inisialisasi Firebase v8
       firebase.initializeApp(firebaseConfig);
-
-      // Definisikan 'db' agar bisa diakses oleh script.js
       const db = firebase.firestore();
     </script>
 
