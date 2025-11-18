@@ -467,6 +467,10 @@ section {
     perspective: 1000px;
 }
 
+.hero-subtitle-elegant {
+    margin-top: 2rem;
+}
+
 .hero-background {
     position: fixed;
     top: 0;
@@ -1930,9 +1934,8 @@ section {
     }
 }
 /* =================================== */
-/* PERBAIKAN FINAL TAMPILAN PC (POSISI) */
+/* PERBAIKAN TAMPILAN PC (POSISI) */
 /* =================================== */
-
 
 .cover-subtitle,
 .hero-subtitle-elegant,
