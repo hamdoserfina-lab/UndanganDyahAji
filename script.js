@@ -1,1293 +1,708 @@
-// =================================== //
-// Premium Wedding JavaScript - Optimized & Fixed
-// =================================== //
+// 1. Inisialisasi AOS
+AOS.init({ duration: 1000, once: true });
 
-// Main Initialization Function
-document.addEventListener("DOMContentLoaded", initializePremiumFeatures);
+// 2. Variabel Global UI
+const cover = document.getElementById("cover");
+const mainContent = document.getElementById("main-content");
+const navbar = document.getElementById("navbar");
+const musicControl = document.getElementById("music-control");
+const audio = document.getElementById("bg-music");
+const musicIcon = document.getElementById("music-icon");
+let isPlaying = false;
 
-// Premium Features Initialization
-function initializePremiumFeatures() {
-  // Register GSAP Plugins jika tersedia
-  if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-    gsap.registerPlugin(ScrollTrigger);
-  }
-
-  // Core Initializations
-  initializeGuestName();
-  initializeCoverAnimations();
-  initializeEventListeners();
-  initializeCountdown();
-  
-  // MODIFIKASI: Urutan pemanggilan diubah
-  // Lightbox HARUS inisialisasi lebih dulu sebelum carousel cloning
-  initializeGalleryLightbox();
-  initializeGalleryCarousel(); 
-
-  initializeEnhancedMusicPlayer();
-  initializeSmoothScrollAnimations();
-  initializeMicroInteractions();
-
-  // Firebase Initialization
-  initializeFirebaseFeatures();
-}
-
-// =================================== //
-// CORE FUNCTIONALITIES
-// =================================== //
-
-// Guest Name from URL Parameters
-function initializeGuestName() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const guestName = urlParams.get("to");
-  const guestNameElement = document.querySelector(".guest-name");
-  const rsvpNameInput = document.querySelector(
-    '.rsvp-form input[name="name"]'
-  );
-
-  if (guestName) {
-    if (guestNameElement) guestNameElement.textContent = guestName;
-    if (rsvpNameInput) rsvpNameInput.value = guestName;
-  }
-}
-
-// Premium Cover Animations
-function initializeCoverAnimations() {
-  const coverElements = [
-    { selector: ".cover-subtitle", delay: 0 },
-    { selector: ".cover-title", delay: 0 },
-    { selector: ".cover-date", delay: 0 },
-    { selector: ".cover-invitation", delay: 0 },
-    { selector: ".open-invitation-btn", delay: 0 },
-  ];
-
-  coverElements.forEach((item) => {
-    const element = document.querySelector(item.selector);
-    if (element) {
-      safeAnimation(element, {
-        duration: 1,
-        opacity: 1,
-        y: 0,
-        delay: item.delay,
-        ease: "power2.out",
-      });
+// 3. Logika URL Parameter
+function getGuestName() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get("to");
+    const displayGuest = document.getElementById("guest-name-cover");
+    const inputNama = document.getElementById("nama");
+    if (guestName) {
+        displayGuest.innerText = guestName;
+        inputNama.value = guestName;
     }
-  });
 }
+getGuestName();
 
-// Event Listeners Initialization
-function initializeEventListeners() {
-  const openBtn = document.getElementById("openBtn");
-  const musicToggle = document.getElementById("musicToggle");
-  const weddingMusic = document.getElementById("weddingMusic");
+// 4. Fungsi Buka Undangan
+function bukaUndangan() {
+    const btn = document.querySelector('.btn-open');
+    const cover = document.getElementById('cover');
+    const canvasExplosion = document.getElementById('explosion-canvas');
+    
+    // Setup Confetti (Ledakan Awal Tetap Solid biar Kelihatan Jelas)
+    const myConfetti = confetti.create(canvasExplosion, { resize: true });
+    const rect = btn.getBoundingClientRect();
+    const x = (rect.left + rect.width / 2) / window.innerWidth;
+    const y = (rect.top + rect.height / 2) / window.innerHeight;
+    
+    // Warna Ledakan (Solid)
+    const blastColors = ['#d4af37', '#f3e5ab', '#ffffff'];
 
-  if (openBtn) openBtn.addEventListener("click", handleOpenInvitation);
-  if (musicToggle && weddingMusic) {
-    musicToggle.addEventListener("click", () =>
-      toggleMusic(weddingMusic, musicToggle)
-    );
-  }
-
-  initializeCopyButtons();
-
-  // Logika untuk auto-hide navigation bar
-  let lastScrollTop = 0;
-  window.addEventListener(
-    "scroll",
-    () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const floatingNav = document.getElementById("floatingNav");
-
-      if (!floatingNav || !floatingNav.classList.contains("active")) {
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-        return;
-      }
-
-      if (scrollTop > lastScrollTop) {
-        floatingNav.classList.add("nav-hidden");
-      } else {
-        floatingNav.classList.remove("nav-hidden");
-      }
-      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-    },
-    { passive: true }
-  );
-}
-
-// =================================== //
-// PREMIUM ANIMATIONS & INTERACTIONS
-// =================================== //
-
-// Enhanced Open Invitation Handler
-function handleOpenInvitation() {
-  const openBtn = document.getElementById("openBtn");
-  const cover = document.getElementById("cover");
-  const mainContent = document.getElementById("mainContent");
-
-  if (!openBtn || !cover || !mainContent) return;
-
-  safeAnimation(openBtn, {
-    scale: 0.9,
-    duration: 0.2,
-    yoyo: true,
-    repeat: 1,
-    onComplete: () => {
-      const coverContent = document.querySelector(".cover-content");
-      if (coverContent) coverContent.classList.add("cover-content-exit");
-      cover.classList.add("parallax-exit", "cover-exit");
-
-      setTimeout(() => {
-        cover.style.display = "none";
-        mainContent.style.display = "block";
-
-        safeAnimation(mainContent, {
-          duration: 1.2,
-          opacity: 1,
-          ease: "power2.out",
-        });
-
-        initializeFloatingNavigation();
-        animateHeroSectionPremium();
-        initializeScrollAnimationsPremium();
-        playMusicAuto();
-
-        window.scrollTo(0, 0);
-      }, 1500);
-    },
-  });
-}
-
-// Premium Hero Section Animation
-function animateHeroSectionPremium() {
-  const tl = gsap.timeline({
-    delay: 0.5,
-    defaults: { ease: "power3.out" },
-  });
-
-  const elements = {
-    subtitle: document.querySelector(".hero-subtitle-elegant"),
-    name1: document.querySelector("#heroName1"),
-    name2: document.querySelector("#heroName2"),
-    ampersand: document.querySelector(".hero-ampersand-new"),
-    date: document.querySelector(".hero-date-elegant"),
-    countdown: document.querySelector(".countdown-new"),
-  };
-
-  if (elements.subtitle) {
-    tl.to(elements.subtitle, { opacity: 1, y: 0, duration: 1.2 });
-  }
-
-  if (elements.name1) {
-    tl.to(
-      elements.name1,
-      { opacity: 1, x: 0, duration: 1.4, ease: "back.out(1.7)" },
-      "-=0.8"
-    );
-  }
-
-  if (elements.name2) {
-    tl.to(
-      elements.name2,
-      { opacity: 1, x: 0, duration: 1.4, ease: "back.out(1.7)" },
-      "<"
-    );
-  }
-
-  if (elements.ampersand) {
-    tl.to(
-      elements.ampersand,
-      { opacity: 1, scale: 1, duration: 1, ease: "elastic.out(1, 0.7)" },
-      "-=0.6"
-    );
-  }
-
-  if (elements.date) {
-    tl.to(elements.date, { opacity: 1, y: 0, duration: 1.2 }, "-=0.8");
-  }
-
-  if (elements.countdown) {
-    tl.to(
-      elements.countdown,
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        onComplete: animateCountdownPulse,
-      },
-      "-=0.8"
-    );
-  }
-}
-
-// Enhanced Scroll Animations
-function initializeScrollAnimationsPremium() {
-  if (typeof ScrollTrigger === "undefined") {
-    initializeFallbackAnimations();
-    return;
-  }
-
-  const fadeUpElements = document.querySelectorAll('[data-anim="fade-up"]');
-  fadeUpElements.forEach((elem) => {
-    if (elem) {
-      gsap.fromTo(
-        elem,
-        { opacity: 0, y: 80 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.4,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: elem,
-            start: "top 85%",
-            end: "bottom 60%",
-            toggleActions: "play none none reverse",
-            markers: false,
-          },
-        }
-      );
-    }
-  });
-
-  const staggerContainers = document.querySelectorAll("[data-anim-stagger]");
-  staggerContainers.forEach((container) => {
-    const items = container.querySelectorAll(".event-card, .bank-card");
-    if (items.length > 0) {
-      gsap.fromTo(
-        items,
-        { opacity: 0, y: 60 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          stagger: { each: 0.2, from: "center" },
-          ease: "back.out(1.2)",
-          scrollTrigger: {
-            trigger: container,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    }
-  });
-
-  const coupleCards = document.querySelectorAll(".couple-card");
-  if (coupleCards.length > 0) {
-    gsap.fromTo(
-      coupleCards,
-      { opacity: 0, y: 100 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        stagger: 0.3,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".couple-inner-container",
-          start: "top 75%",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
-  }
-}
-
-// Fallback animations jika ScrollTrigger tidak tersedia
-function initializeFallbackAnimations() {
-  const animatedElements = document.querySelectorAll(
-    '[data-anim="fade-up"], [data-anim-stagger]'
-  );
-  animatedElements.forEach((element, index) => {
-    if (element) {
-      safeAnimation(element, {
-        opacity: 1,
-        y: 0,
-        duration: 0.1,
-        delay: index * 0.1,
-        ease: "power2.out",
-      });
-    }
-  });
-}
-
-// =================================== //
-// SMOOTH SCROLL ANIMATIONS
-// =================================== //
-
-function initializeSmoothScrollAnimations() {
-  const internalLinks = document.querySelectorAll(
-    'a[href^="#"]:not(.nav-link)'
-  );
-
-  internalLinks.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      const href = this.getAttribute("href");
-      if (href !== "#") {
-        e.preventDefault();
-        const targetElement = document.querySelector(href);
-        if (targetElement) {
-          if (
-            typeof gsap !== "undefined" &&
-            gsap.utils.checkPrefix("scrollTo")
-          ) {
-            gsap.to(window, {
-              duration: 1.2,
-              scrollTo: { y: targetElement, offsetY: 100 },
-              ease: "power2.inOut",
-            });
-          } else {
-            targetElement.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
-          }
-        }
-      }
+    myConfetti({
+        particleCount: 200, // Jumlah ledakan
+        spread: 100,
+        origin: { x: x, y: y },
+        colors: blastColors,
+        shapes: ['circle'],
+        scalar: 0.8,
+        gravity: 0.8,
+        ticks: 400,
+        disableForReducedMotion: true,
+        zIndex: 20001 
     });
-  });
-}
 
-// =================================== //
-// PREMIUM COMPONENTS
-// =================================== //
+    // Musik
+    musicControl.style.opacity = "1";
+    playMusic();
 
-// Floating Navigation dengan Smooth Behavior
-function initializeFloatingNavigation() {
-  const floatingNav = document.getElementById("floatingNav");
-  const triggerSection = document.getElementById("hero");
-
-  if (!floatingNav || !triggerSection) return;
-
-  if (typeof ScrollTrigger !== "undefined") {
-    ScrollTrigger.create({
-      trigger: triggerSection,
-      start: "bottom top",
-      onEnter: () => floatingNav.classList.add("active"),
-      onLeaveBack: () => floatingNav.classList.remove("active"),
-    });
-  } else {
-    window.addEventListener("scroll", () => {
-      const heroBottom = triggerSection.offsetTop + triggerSection.offsetHeight;
-      floatingNav.classList.toggle(
-        "active",
-        window.pageYOffset > heroBottom - 100
-      );
-    });
-  }
-
-  const navLinks = document.querySelectorAll(".nav-link");
-  navLinks.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      const targetId = this.getAttribute("href");
-      const targetSection = document.querySelector(targetId);
-      if (targetSection) {
-        if (
-          typeof gsap !== "undefined" &&
-          gsap.utils.checkPrefix("scrollTo")
-        ) {
-          gsap.to(window, {
-            duration: 1.2,
-            scrollTo: { y: targetSection, offsetY: 80 },
-            ease: "power2.inOut",
-          });
-        } else {
-          targetSection.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        }
-      }
-    });
-  });
-}
-
-// =================================== //
-// MODIFIKASI: FUNGSI GALLERY CAROUSEL (CONTINUOUS SCROLL V2)
-// =================================== //
-function initializeGalleryCarousel() {
-  const track = document.getElementById("galleryTrack");
-  if (!track || typeof gsap === "undefined") return;
-
-  const items = Array.from(track.querySelectorAll(".gallery-item"));
-  if (items.length === 0) return;
-
-  // 1. Duplikasi item untuk loop yang seamless (ini sudah benar)
-  items.forEach((item) => {
-    const clone = item.cloneNode(true);
-    track.appendChild(clone);
-  });
-
-  // 2. Kalkulasi durasi berdasarkan jumlah item
-  // (Misal: 8 detik per item. 3 item = 24 detik untuk satu putaran)
-  const scrollDuration = items.length * 8; 
-
-  // 3. Buat timeline GSAP
-  const tl = gsap.timeline({ repeat: -1 });
-
-  // 4. PERBAIKAN: Gunakan xPercent: -50
-  // Ini akan menggerakkan track ke kiri sebesar 50% dari total lebarnya.
-  // Karena track kita 200% (item asli + clone), ini akan
-  // menggeser tepat selebar item aslinya, menciptakan loop yang sempurna.
-  tl.to(track, {
-    xPercent: -50,
-    duration: scrollDuration,
-    ease: "none",
-  });
-
-  // 5. Jeda saat di-hover (ini sudah benar)
-  const container = track.closest(".gallery-carousel-container");
-  if (container) {
-    container.addEventListener("mouseenter", () => tl.pause());
-    container.addEventListener("mouseleave", () => tl.play());
-  }
-}
-
-// =================================== //
-// MODIFIKASI: FUNGSI LIGHTBOX (EVENT DELEGATION)
-// =================================== //
-function initializeGalleryLightbox() {
-  // Ambil item ORIGINAL (sebelum di-clone)
-  const originalItems = document.querySelectorAll(".gallery-item");
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImage = document.querySelector(".lightbox-image");
-  const lightboxClose = document.getElementById("lightboxClose");
-  const lightboxPrev = document.querySelector(".lightbox-prev");
-  const lightboxNext = document.querySelector(".lightbox-next");
-  const track = document.getElementById("galleryTrack"); // Target listener
-
-  if (!originalItems.length || !lightbox || !lightboxImage || !track) return;
-
-  let currentImageIndex = 0;
-  
-  // 1. Buat array HANYA dari gambar original
-  const images = Array.from(originalItems)
-    .map((item) => {
-      const img = item.querySelector(".gallery-image");
-      return img && img.src ? img.src : null;
-    })
-    .filter((src) => src !== null);
-
-  if (images.length === 0) return;
-
-  // 2. Gunakan Event Delegation pada 'track'
-  // Ini akan berfungsi untuk item original DAN item yang di-clone
-  track.addEventListener("click", (e) => {
-    const item = e.target.closest(".gallery-item");
-    if (!item) return;
-
-    const img = item.querySelector(".gallery-image");
-    if (img && img.src) {
-      // Cari index gambar di array original
-      currentImageIndex = images.indexOf(img.src);
-      
-      // Jika tidak ketemu (seharusnya tidak terjadi, tapi just in case)
-      // fallback ke src gambar yg di-clone
-      if (currentImageIndex === -1) {
-          const originalSrc = img.src;
-          // Coba cari di DOM original (walaupun indexOf harusnya cukup)
-          for(let i=0; i < images.length; i++) {
-              if (originalSrc.includes(images[i])) {
-                  currentImageIndex = i;
-                  break;
-              }
-          }
-          // Jika masih -1, buka saja gambar itu
-          if (currentImageIndex === -1) {
-              openLightbox(img.src);
-              return;
-          }
-      }
-
-      openLightbox(images[currentImageIndex]);
-    }
-  });
-
-  // 3. Sisanya (logika lightbox) tetap sama
-  if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
-  if (lightboxPrev) lightboxPrev.addEventListener("click", showPrevImage);
-  if (lightboxNext) lightboxNext.addEventListener("click", showNextImage);
-
-  document.addEventListener("keydown", handleKeyboardNavigation);
-
-  lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) closeLightbox();
-  });
-
-  function openLightbox(imageSrc) {
-    lightboxImage.src = imageSrc;
-    lightbox.classList.add("active");
-    document.body.style.overflow = "hidden";
-
-    const lightboxContent = lightbox.querySelector(".lightbox-content");
-    if (lightboxContent) {
-      safeAnimation(lightboxContent, {
-        scale: 1,
-        opacity: 1,
-        duration: 0.5,
-        ease: "back.out(1.2)",
-      });
-    }
-  }
-
-  function closeLightbox() {
-    const lightboxContent = lightbox.querySelector(".lightbox-content");
-    if (lightboxContent) {
-      safeAnimation(lightboxContent, {
-        scale: 0.8,
-        opacity: 0,
-        duration: 0.3,
-        ease: "power2.in",
-        onComplete: () => {
-          lightbox.classList.remove("active");
-          document.body.style.overflow = "";
-        },
-      });
-    } else {
-      lightbox.classList.remove("active");
-      document.body.style.overflow = "";
-    }
-  }
-
-  function showPrevImage() {
-    currentImageIndex =
-      (currentImageIndex - 1 + images.length) % images.length;
-    updateLightboxImage();
-  }
-
-  function showNextImage() {
-    currentImageIndex = (currentImageIndex + 1) % images.length;
-    updateLightboxImage();
-  }
-
-  function updateLightboxImage() {
-    safeAnimation(lightboxImage, {
-      opacity: 0,
-      duration: 0.2,
-      onComplete: () => {
-        lightboxImage.src = images[currentImageIndex];
-        safeAnimation(lightboxImage, { opacity: 1, duration: 0.3 });
-      },
-    });
-  }
-
-  function handleKeyboardNavigation(e) {
-    if (!lightbox.classList.contains("active")) return;
-    switch (e.key) {
-      case "Escape":
-        closeLightbox();
-        break;
-      case "ArrowLeft":
-        showPrevImage();
-        break;
-      case "ArrowRight":
-        showNextImage();
-        break;
-    }
-  }
-}
-
-// Enhanced Music Player
-function initializeEnhancedMusicPlayer() {
-  const weddingMusic = document.getElementById("weddingMusic");
-  const musicToggle = document.getElementById("musicToggle");
-  const progressBar = document.querySelector(".progress-bar");
-
-  if (!weddingMusic || !musicToggle) return;
-
-  let isMusicPlaying = false;
-  let progressAnimation;
-
-  if (progressBar && typeof gsap !== "undefined") {
-    progressAnimation = gsap.to(progressBar, {
-      width: "100%",
-      duration: 30,
-      repeat: -1,
-      ease: "none",
-      paused: true,
-    });
-  }
-
-  musicToggle.addEventListener("click", () => {
-    if (isMusicPlaying) {
-      weddingMusic.pause();
-      isMusicPlaying = false;
-      musicToggle.innerHTML = '<i class="fas fa-music"></i>';
-      if (progressAnimation) progressAnimation.pause();
-    } else {
-      weddingMusic
-        .play()
-        .then(() => {
-          isMusicPlaying = true;
-          musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
-          if (progressAnimation) progressAnimation.play();
-        })
-        .catch(() => {
-          musicToggle.innerHTML = '<i class="fas fa-music"></i>';
-        });
-    }
-
-    safeAnimation(musicToggle, {
-      scale: 1.2,
-      duration: 0.2,
-      yoyo: true,
-      repeat: 1,
-    });
-  });
-
-  weddingMusic.addEventListener("timeupdate", () => {
-    if (progressBar && weddingMusic.duration) {
-      const progress =
-        (weddingMusic.currentTime / weddingMusic.duration) * 100;
-      progressBar.style.width = progress + "%";
-    }
-  });
-
-  weddingMusic.addEventListener("ended", () => {
-    if (progressBar) progressBar.style.width = "0%";
-    if (progressAnimation) {
-      progressAnimation.restart();
-      progressAnimation.pause();
-    }
-    musicToggle.innerHTML = '<i class="fas fa-music"></i>';
-    isMusicPlaying = false;
-  });
-}
-
-// Auto-play music setelah invitation dibuka
-function playMusicAuto() {
-  const weddingMusic = document.getElementById("weddingMusic");
-  const musicToggle = document.getElementById("musicToggle");
-
-  if (weddingMusic && musicToggle) {
+    // Transisi Cover
     setTimeout(() => {
-      weddingMusic.volume = 0.3;
-      weddingMusic
-        .play()
-        .then(() => {
-          musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
-          const progressBar = document.querySelector(".progress-bar");
-          if (progressBar) {
-            safeAnimation(progressBar, {
-              width: "100%",
-              duration: weddingMusic.duration || 30,
-              ease: "none",
-            });
-          }
-        })
-        .catch(() => {
-          // Autoplay dicegah, biarkan ikon play
-        });
-    }, 1000);
-  }
+        cover.classList.add("hidden");
+        document.body.style.overflow = "auto";
+        mainContent.style.display = "block";
+        navbar.style.display = "flex";
+        
+        setTimeout(() => { 
+            AOS.refresh(); 
+            // Initialize GSAP animations after cover is hidden
+            initPremiumAnimations();
+        }, 500);
+        
+        // MULAI HUJAN (Versi Halus)
+        loadUcapan();
+        initParticles(); 
+        
+        // TIMER 15 DETIK: Stop Hujan
+        setTimeout(() => { stopRain(); }, 15000);
+
+        setTimeout(() => { myConfetti.reset(); }, 4000);
+    }, 800); 
 }
 
-// =================================== //
-// ENHANCED COUNTDOWN FEATURES
-// =================================== //
+// 5. Musik Logic
+function playMusic() {
+    audio.play().catch(e => console.log("Autoplay blocked"));
+    isPlaying = true;
+    musicControl.classList.add("spin");
+}
+function toggleMusic() {
+    if (isPlaying) {
+        audio.pause();
+        musicControl.classList.remove("spin");
+        musicIcon.classList.replace("bi-music-note-beamed", "bi-pause-fill");
+    } else {
+        audio.play();
+        musicControl.classList.add("spin");
+        musicIcon.classList.replace("bi-pause-fill", "bi-music-note-beamed");
+    }
+    isPlaying = !isPlaying;
+}
 
-// Premium Countdown dengan Animations
-function initializeCountdown() {
-  const weddingDate = new Date("December 15, 2025 08:00:00").getTime();
-  let countdownTimer;
+// 6. Tab Mempelai
+function switchMempelai(name) {
+    const tabs = document.querySelectorAll('.avatar-btn'); 
+    const contents = document.querySelectorAll('.mempelai-content');
+    tabs.forEach(t => t.classList.remove('active'));
+    contents.forEach(c => c.classList.remove('active'));
+    if (name === 'dyah') {
+        tabs[0].classList.add('active');
+        document.getElementById('content-dyah').classList.add('active');
+    } else {
+        tabs[1].classList.add('active');
+        document.getElementById('content-aji').classList.add('active');
+    }
+}
 
-  function updateCountdown() {
+// 7. Countdown
+const weddingDate = new Date("Dec 15, 2025 08:00:00").getTime();
+const countdownInterval = setInterval(function () {
     const now = new Date().getTime();
     const distance = weddingDate - now;
-
-    if (distance < 0) {
-      handleCountdownComplete();
-      return;
-    }
-
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(
-      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = hours;
+    document.getElementById("minutes").innerText = minutes;
+    document.getElementById("seconds").innerText = seconds;
+    if (distance < 0) {
+        clearInterval(countdownInterval);
+        document.querySelector(".countdown-box").innerHTML = "<p style='color:#d4af37;'>Acara Telah Selesai</p>";
+    }
+}, 1000);
 
-    updateCountdownDisplay(days, hours, minutes, seconds);
-  }
+// 8. Copy Text
+function copyText(text) {
+    navigator.clipboard.writeText(text).then(
+        () => { showToast("Berhasil Disalin!"); },
+        () => { alert("Gagal salin: " + text); }
+    );
+}
+function showToast(msg) {
+    const toast = document.getElementById("copy-toast");
+    toast.innerHTML = `<i class="bi bi-check-circle-fill"></i> ${msg}`;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+}
 
-  function updateCountdownDisplay(days, hours, minutes, seconds) {
-    const elements = {
-      days: document.getElementById("days"),
-      hours: document.getElementById("hours"),
-      minutes: document.getElementById("minutes"),
-      seconds: document.getElementById("seconds"),
-    };
+/* ============================================
+   GLOBAL RAIN PARTICLE SYSTEM (VERSI SOFT / GHOST)
+   ============================================ */
+const canvas = document.getElementById("gold-particles");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    const values = [days, hours, minutes, seconds];
+let particlesArray;
+let isRainingActive = true;
 
-    Object.keys(elements).forEach((key, index) => {
-      const element = elements[key];
-      if (element) {
-        const currentValue = element.textContent;
-        const newValue = values[index].toString().padStart(2, "0");
+// [UPDATE] PALET WARNA TRANSPARAN (RGBA)
+// Angka terakhir (0.4) adalah tingkat transparansi. Semakin kecil = semakin pudar.
+const dustPalette = [
+    'rgba(212, 175, 55, 0.5)',   // Emas Tua (50% Transparan)
+    'rgba(243, 229, 171, 0.4)',  // Emas Muda (40% Transparan)
+    'rgba(255, 255, 255, 0.2)'   // Putih (20% Transparan - Sangat Tipis)
+];
 
-        if (currentValue !== newValue) {
-          safeAnimation(element, {
-            scale: 1.2,
-            duration: 0.2,
-            yoyo: true,
-            repeat: 1,
-            ease: "power2.inOut",
-            onStart: () => (element.textContent = newValue),
-          });
-        }
-      }
-    });
-  }
+window.addEventListener('resize', function(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
 
-  function handleCountdownComplete() {
-    clearInterval(countdownTimer);
+function stopRain() {
+    isRainingActive = false; 
+}
 
-    const countdownItems = document.querySelectorAll(".countdown-item-new");
-    if (countdownItems.length > 0) {
-      safeAnimation(countdownItems, {
-        scale: 1.5,
-        rotation: 360,
-        duration: 1,
-        stagger: 0.1,
-        ease: "back.out(1.7)",
-        onComplete: () => {
-          safeAnimation(countdownItems, {
-            scale: 1,
-            rotation: 0,
-            duration: 0.5,
-          });
-        },
-      });
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height; 
+        
+        // [UPDATE] UKURAN DIPERKECIL (0.5px sampai 2.5px)
+        this.size = Math.random() * 2 + 0.5; 
+        
+        this.color = dustPalette[Math.floor(Math.random() * dustPalette.length)];
+        this.speedY = Math.random() * 1.5 + 0.5; 
+        this.speedX = Math.random() * 0.5 - 0.25; 
     }
 
-    const elements = ["days", "hours", "minutes", "seconds"];
-    elements.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) element.textContent = "00";
-    });
-  }
-
-  updateCountdown();
-  countdownTimer = setInterval(updateCountdown, 1000);
-}
-
-// Countdown Pulse Animation
-function animateCountdownPulse() {
-  const countdownNumbers = document.querySelectorAll(".countdown-number-new");
-  if (countdownNumbers.length > 0) {
-    safeAnimation(countdownNumbers, {
-      scale: 1.05,
-      duration: 1,
-      yoyo: true,
-      repeat: -1,
-      ease: "sine.inOut",
-      stagger: { each: 0.2, from: "center" },
-    });
-  }
-}
-
-// =================================== //
-// MICRO-INTERACTIONS & ENHANCEMENTS
-// =================================== //
-
-function initializeMicroInteractions() {
-  initializeButtonInteractions();
-  initializeCardInteractions();
-}
-
-// Premium Button Interactions
-function initializeButtonInteractions() {
-  const buttons = document.querySelectorAll(
-    "button, .social-btn, .map-action-btn"
-  );
-
-  buttons.forEach((button) => {
-    if (!button) return;
-
-    button.addEventListener("mouseenter", function () {
-      safeAnimation(this, { y: -2, duration: 0.3, ease: "power2.out" });
-    });
-
-    button.addEventListener("mouseleave", function () {
-      safeAnimation(this, { y: 0, duration: 0.3, ease: "power2.out" });
-    });
-
-    button.addEventListener("mousedown", function () {
-      safeAnimation(this, { scale: 0.95, duration: 0.1 });
-    });
-
-    button.addEventListener("mouseup", function () {
-      safeAnimation(this, { scale: 1, duration: 0.1 });
-    });
-  });
-}
-
-// Enhanced Card Interactions
-function initializeCardInteractions() {
-  const cards = document.querySelectorAll(
-    ".content-box, .bank-card, .event-card"
-  );
-
-  cards.forEach((card) => {
-    if (!card) return;
-
-    card.addEventListener("mouseenter", function () {
-      safeAnimation(this, {
-        y: -5,
-        rotationY: 2,
-        duration: 0.4,
-        ease: "power2.out",
-      });
-    });
-
-    card.addEventListener("mouseleave", function () {
-      safeAnimation(this, {
-        y: 0,
-        rotationY: 0,
-        duration: 0.4,
-        ease: "power2.out",
-      });
-    });
-  });
-}
-
-// =================================== //
-// ENHANCED COPY FUNCTIONALITY
-// =================================== //
-
-function initializeCopyButtons() {
-  document.querySelectorAll(".copy-btn").forEach((button) => {
-    if (button) {
-      button.addEventListener("click", function () {
-        const accountNumber = this.getAttribute("data-account");
-        copyToClipboard(accountNumber, this);
-      });
-    }
-  });
-
-  const copyAddressBtn = document.getElementById("copyAddress");
-  if (copyAddressBtn) {
-    copyAddressBtn.addEventListener("click", () => {
-      const address =
-        "Bulu, Pondoksari, Nguntoronadi, Wonogiri, Jawa Tengah 55683";
-      copyToClipboard(address, copyAddressBtn);
-    });
-  }
-
-  document.querySelectorAll(".copy-icon").forEach((icon) => {
-    if (icon) {
-      icon.addEventListener("click", function () {
-        const card = this.closest(".bank-card");
-        if (card) {
-          const accountNumberElement =
-            card.querySelector(".card-number");
-          if (accountNumberElement) {
-            const accountNumber =
-              accountNumberElement.textContent.replace(/\s/g, "");
-            copyToClipboard(accountNumber, this);
-          }
-        }
-      });
-    }
-  });
-}
-
-// Enhanced Copy to Clipboard dengan Animation
-function copyToClipboard(text, element) {
-  if (!navigator.clipboard) {
-    fallbackCopyToClipboard(text, element);
-    return;
-  }
-
-  navigator.clipboard
-    .writeText(text)
-    .then(() => showCopySuccess(element))
-    .catch(() => {
-      showCopyError(element);
-    });
-}
-
-function fallbackCopyToClipboard(text, element) {
-  const textArea = document.createElement("textarea");
-  textArea.value = text;
-  document.body.appendChild(textArea);
-  textArea.select();
-
-  try {
-    document.execCommand("copy");
-    showCopySuccess(element);
-  } catch (err) {
-    showCopyError(element);
-  }
-
-  document.body.removeChild(textArea);
-}
-
-// =================================== //
-// PERBAIKAN: FUNGSI showCopySuccess
-// =================================== //
-function showCopySuccess(element) {
-  const originalHTML = element.innerHTML;
-  const originalBackground = element.style.background;
-  const originalColor = element.style.color;
-
-  safeAnimation(element, {
-    scale: 1.1,
-    duration: 0.2,
-    yoyo: true,
-    repeat: 1,
-    ease: "power2.inOut",
-    onStart: () => {
-      // PERBAIKAN LOGIKA:
-      // Sekarang, ia akan menangani .copy-btn DAN #copyAddress
-      if (element.classList.contains("copy-btn") || element.id === "copyAddress") {
-        element.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
-        element.style.background = "var(--gradient)";
-        element.style.color = "var(--white)";
-      } else {
-        // Logika untuk icon (copy-icon)
-        element.className = "fas fa-check";
-        element.style.color = "#4CAF50";
-      }
-    },
-    onComplete: () => {
-      setTimeout(() => {
-        // PERBAIKAN LOGIKA:
-        // Memastikan reset-nya juga berlaku untuk #copyAddress
-        if (element.classList.contains("copy-btn") || element.id === "copyAddress") {
-          element.innerHTML = originalHTML;
-          element.style.background = originalBackground;
-          element.style.color = originalColor;
-        } else {
-          // Reset icon
-          element.className = "fas fa-copy copy-icon";
-          element.style.color = "";
-        }
-      }, 2000);
-    },
-  });
-}
-
-// =================================== //
-// PERBAIKAN: FUNGSI showCopyError
-// =================================== //
-function showCopyError(element) {
-  const originalHTML = element.innerHTML;
-  const originalBackground = element.style.background;
-
-  safeAnimation(element, {
-    scale: 1.1,
-    duration: 0.2,
-    yoyo: true,
-    repeat: 1,
-    ease: "power2.inOut",
-    onStart: () => {
-      // PERBAIKAN LOGIKA:
-      // Menerapkan perbaikan yang sama di sini
-      if (element.classList.contains("copy-btn") || element.id === "copyAddress") {
-        element.innerHTML = '<i class="fas fa-times"></i> Gagal!';
-        element.style.background = "#ff4444";
-      }
-    },
-    onComplete: () => {
-      setTimeout(() => {
-        // PERBAIKAN LOGIKA:
-        // Menerapkan reset yang sama di sini
-        if (element.classList.contains("copy-btn") || element.id === "copyAddress") {
-          element.innerHTML = originalHTML;
-          element.style.background = originalBackground;
-        }
-      }, 2000);
-    },
-  });
-}
-
-// =================================== //
-// FIREBASE & RSVP ENHANCEMENTS
-// =================================== //
-
-function initializeFirebaseFeatures() {
-  loadCommentsPremium();
-  initializeRsvpFormPremium();
-}
-
-function initializeRsvpFormPremium() {
-  const rsvpForm = document.querySelector(".rsvp-form");
-  if (!rsvpForm) return;
-
-  rsvpForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const formData = {
-      name: this.querySelector('input[name="name"]').value,
-      attendance: this.querySelector('select[name="attendance"]').value,
-      message: this.querySelector('textarea[name="message"]').value,
-    };
-
-    submitRsvpForm(formData, this);
-  });
-
-  const formInputs = rsvpForm.querySelectorAll("input, select, textarea");
-  formInputs.forEach((input) => {
-    input.addEventListener("focus", function () {
-      const parent = this.parentElement;
-      if (parent)
-        safeAnimation(parent, {
-          y: -5,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-    });
-
-    input.addEventListener("blur", function () {
-      const parent = this.parentElement;
-      if (parent)
-        safeAnimation(parent, {
-          y: 0,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-    });
-  });
-}
-
-// Enhanced RSVP Submission
-function submitRsvpForm(formData, rsvpForm) {
-  const submitBtn = rsvpForm.querySelector(".submit-btn");
-  if (!submitBtn) return;
-
-  const originalBtnText = submitBtn.innerHTML;
-
-  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
-  submitBtn.disabled = true;
-
-  safeAnimation(submitBtn, { scale: 0.95, duration: 0.2 });
-
-  if (typeof db !== "undefined") {
-    db.collection("ucapan")
-      .add({
-        nama: formData.name,
-        kehadiran: formData.attendance,
-        ucapan: formData.message,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      })
-      .then(() => {
-        safeAnimation(submitBtn, {
-          scale: 1,
-          duration: 0.3,
-          ease: "back.out(1.7)",
-          onStart: () => {
-            submitBtn.innerHTML =
-              '<i class="fas fa-check"></i> Terkirim!';
-            submitBtn.style.background =
-              "linear-gradient(135deg, #4CAF50, #45a049)";
-          },
-        });
-
-        setTimeout(() => {
-          rsvpForm.reset();
-
-          const urlParams = new URLSearchParams(
-            window.location.search
-          );
-          const guestName = urlParams.get("to");
-          const rsvpNameInput =
-            rsvpForm.querySelector('input[name="name"]');
-          if (guestName && rsvpNameInput)
-            rsvpNameInput.value = guestName;
-
-          setTimeout(() => {
-            submitBtn.innerHTML = originalBtnText;
-            submitBtn.style.background = "";
-            submitBtn.disabled = false;
-          }, 1000);
-        }, 2000);
-      })
-      .catch((error) => {
-        safeAnimation(submitBtn, {
-          scale: 1,
-          duration: 0.3,
-          onStart: () => {
-            submitBtn.innerHTML =
-              '<i class="fas fa-times"></i> Gagal!';
-            submitBtn.style.background = "#ff4444";
-          },
-        });
-
-        setTimeout(() => {
-          submitBtn.innerHTML = originalBtnText;
-          submitBtn.style.background = "";
-          submitBtn.disabled = false;
-        }, 2000);
-
-        alert("Gagal mengirim ucapan, silakan coba lagi.");
-      });
-  } else {
-    submitBtn.innerHTML = originalBtnText;
-    submitBtn.disabled = false;
-    alert("Firebase not initialized. Please check your configuration.");
-  }
-}
-
-// Premium Comments Loading dengan Animation
-function loadCommentsPremium() {
-  const commentList = document.getElementById("commentList");
-  if (!commentList) return;
-
-  if (typeof db === "undefined") {
-    commentList.innerHTML =
-      "<p>Gagal memuat ucapan. Konfigurasi Firebase salah.</p>";
-    return;
-  }
-
-  commentList.innerHTML = `
-    <div class="comment-loading" style="text-align: center; opacity: 0.7;">
-      <i class="fas fa-spinner fa-spin"></i>
-      <p>Memuat ucapan...</p>
-    </div>
-  `;
-
-  db.collection("ucapan")
-    .orderBy("timestamp", "desc")
-    .onSnapshot(
-      (querySnapshot) => {
-        if (querySnapshot.empty) {
-          commentList.innerHTML = `
-            <div class="no-comments" style="text-align: center; opacity: 0.7;">
-              <i class="fas fa-comments"></i>
-              <p>Jadilah yang pertama memberi ucapan!</p>
-            </div>
-          `;
-          return;
-        }
-
-        safeAnimation(commentList, {
-          opacity: 0,
-          duration: 0.3,
-          onComplete: () => {
-            commentList.innerHTML = "";
-            querySnapshot.forEach((doc, index) => {
-              const data = doc.data();
-              commentList.innerHTML += createCommentHTML(
-                data,
-                index
-              );
-            });
-
-            const commentChildren = commentList.children;
-            if (commentChildren.length > 0) {
-              gsap.fromTo(
-                commentChildren,
-                { opacity: 0, y: 30 },
-                {
-                  opacity: 1,
-                  y: 0,
-                  duration: 0.6,
-                  stagger: 0.1,
-                  ease: "power2.out",
-                }
-              );
+    update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+        
+        if (this.y > canvas.height) {
+            if (isRainingActive) {
+                this.y = 0 - this.size; 
+                this.x = Math.random() * canvas.width;
+                this.speedY = Math.random() * 1.5 + 0.5;
             }
+        }
+    }
 
-            safeAnimation(commentList, {
-              opacity: 1,
-              duration: 0.3,
+    draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function initParticles() {
+    isRainingActive = true;
+    particlesArray = [];
+    // [UPDATE] JUMLAH DIKURANGI SEDIKIT AGAR TIDAK SUMPEK
+    for (let i = 0; i < 100; i++) { 
+        particlesArray.push(new Particle());
+    }
+    animateParticles();
+}
+
+function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+    }
+    requestAnimationFrame(animateParticles);
+}
+
+/* ============================================
+   3D TILT (HERO ONLY)
+   ============================================ */
+const tiltBox = document.querySelector('.tilt-box');
+const tiltCard = document.getElementById('tilt-card');
+const tiltGlare = document.getElementById('tilt-glare');
+
+if (window.matchMedia("(min-width: 768px)").matches && tiltBox) {
+    tiltBox.addEventListener('mousemove', (e) => {
+        const rect = tiltBox.getBoundingClientRect();
+        const x = e.clientX - rect.left; 
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -15; 
+        const rotateY = ((x - centerX) / centerX) * 15;
+
+        tiltCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        
+        const glareX = ((x / rect.width) * 100);
+        const glareY = ((y / rect.height) * 100);
+        tiltGlare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.3), rgba(255,255,255,0))`;
+        tiltGlare.style.opacity = '1';
+    });
+    tiltBox.addEventListener('mouseleave', () => {
+        tiltCard.style.transform = `rotateX(0) rotateY(0)`;
+        tiltGlare.style.opacity = '0';
+    });
+}
+
+/* ============================================
+   FIREBASE UCAPAN LOGIC
+   ============================================ */
+function kirimUcapan(e) {
+    e.preventDefault();
+    const nama = document.getElementById("nama").value;
+    const kehadiran = document.getElementById("kehadiran").value;
+    const pesan = document.getElementById("pesan").value;
+    const btn = document.querySelector(".btn-kirim");
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Mengirim...';
+
+    db.collection("ucapan").add({
+        nama: nama, kehadiran: kehadiran, pesan: pesan,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+        showToast("Terima Kasih, Ucapan Terkirim!");
+        document.getElementById("rsvpForm").reset();
+        getGuestName();
+    }).catch(error => { console.error("Error:", error); alert("Gagal mengirim ucapan."); })
+    .finally(() => { btn.disabled = false; btn.innerHTML = originalText; });
+}
+
+function loadUcapan() {
+    const list = document.getElementById("comments-list");
+    if(!list) return;
+    db.collection("ucapan").orderBy("timestamp", "desc").limit(20).onSnapshot(snapshot => {
+        let html = "";
+        if (snapshot.empty) { html = '<div class="loading-text">Belum ada ucapan. Jadilah yang pertama!</div>'; } 
+        else {
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                let timeString = "";
+                if (data.timestamp) {
+                    const date = data.timestamp.toDate();
+                    timeString = date.toLocaleDateString("id-ID") + " " + date.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
+                }
+                let statusClass = data.kehadiran.includes("Tidak") ? "Tidak" : "Hadir";
+                html += `<div class="comment-item">
+                    <div class="comment-header"><span class="c-name">${escapeHtml(data.nama)}</span><span class="c-status ${statusClass}">${data.kehadiran}</span></div>
+                    <p class="c-message">${escapeHtml(data.pesan)}</p><span class="c-time">${timeString}</span>
+                </div>`;
             });
-          },
+        }
+        list.innerHTML = html;
+    });
+}
+function escapeHtml(text) {
+    if (!text) return "";
+    return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+}
+
+/* ============================================
+   GSAP SCROLL ANIMATIONS (Verse to Footer)
+   ============================================ */
+
+function initPremiumAnimations() {
+    // Register ScrollTrigger plugin
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Reduce motion for accessibility
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reduceMotion.matches) return;
+    
+    // SECTION VERSE ANIMATIONS
+    const verseAnim = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.section-verse',
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse'
+        }
+    });
+    
+    verseAnim.fromTo('.glass-box-verse', 
+        { scale: 0.8, opacity: 0, rotationY: 10 },
+        { scale: 1, opacity: 1, rotationY: 0, duration: 1.2, ease: 'back.out(1.4)' }
+    );
+    
+    verseAnim.fromTo('.verse-decoration', 
+        { rotation: -180, opacity: 0, scale: 0.5 },
+        { rotation: 0, opacity: 1, scale: 1, duration: 1, ease: 'power2.out' },
+        '-=0.8'
+    );
+    
+    verseAnim.fromTo('.verse-text', 
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 1.2, ease: 'power2.out' },
+        '-=0.6'
+    );
+    
+    verseAnim.fromTo('.verse-source', 
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
+        '-=0.4'
+    );
+    
+    // Continuous star rotation
+    gsap.to('.verse-decoration', {
+        rotation: 360,
+        duration: 20,
+        repeat: -1,
+        ease: 'none'
+    });
+
+    // SECTION MEMPELAI ANIMATIONS
+    const mempelaiAnim = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.section-mempelai-tabs',
+            start: 'top 75%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse'
+        }
+    });
+    
+    mempelaiAnim.fromTo('.section-title-gold', 
+        { y: -100, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'bounce.out' }
+    );
+    
+    mempelaiAnim.fromTo('.avatar-btn:nth-child(1)', 
+        { x: -100, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.8, ease: 'power2.out' },
+        '-=0.5'
+    );
+    
+    mempelaiAnim.fromTo('.avatar-btn:nth-child(3)', 
+        { x: 100, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.8, ease: 'power2.out' },
+        '-=0.6'
+    );
+    
+    mempelaiAnim.fromTo('.avatar-connector', 
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.6, ease: 'power2.out' },
+        '-=0.4'
+    );
+    
+    mempelaiAnim.fromTo('.glass-card-mempelai', 
+        { scale: 0.9, opacity: 0, filter: 'blur(10px)' },
+        { scale: 1, opacity: 1, filter: 'blur(0px)', duration: 1, ease: 'back.out(1.2)' },
+        '-=0.3'
+    );
+    
+    // Photo frame animation
+    mempelaiAnim.fromTo('.photo-frame-gold', 
+        { rotationY: -45, opacity: 0, scale: 0.8 },
+        { rotationY: 0, opacity: 1, scale: 1, duration: 1, ease: 'power2.out' },
+        '-=0.5'
+    );
+    
+    // Info text stagger
+    mempelaiAnim.fromTo('.info-text > *', 
+        { x: -30, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: 'power2.out' },
+        '-=0.3'
+    );
+    
+    // Instagram button
+    mempelaiAnim.fromTo('.btn-ig', 
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: 'back.out(1.5)' },
+        '-=0.2'
+    );
+
+    // SECTION EVENTS ANIMATIONS
+    const eventsAnim = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.section-events',
+            start: 'top 70%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse'
+        }
+    });
+    
+    eventsAnim.fromTo('.event-card:nth-child(1)', 
+        { rotationY: -90, opacity: 0 },
+        { rotationY: 0, opacity: 1, duration: 1, ease: 'power2.out' }
+    );
+    
+    eventsAnim.fromTo('.event-card:nth-child(2)', 
+        { rotationY: 90, opacity: 0 },
+        { rotationY: 0, opacity: 1, duration: 1, ease: 'power2.out' },
+        '-=0.7'
+    );
+    
+    // Icons bounce
+    eventsAnim.fromTo('.card-ornament-top', 
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 0.3, duration: 0.8, ease: 'bounce.out', stagger: 0.2 },
+        '-=0.5'
+    );
+    
+    // Title animation
+    eventsAnim.fromTo('.event-title', 
+        { y: -50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out', stagger: 0.1 },
+        '-=0.4'
+    );
+    
+    // Content stagger
+    eventsAnim.fromTo('.event-date, .event-time, .event-divider, .event-location', 
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power2.out' },
+        '-=0.3'
+    );
+
+    // SECTION LOCATION ANIMATIONS
+    const locationAnim = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.section-location',
+            start: 'top 70%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse'
+        }
+    });
+    
+    locationAnim.fromTo('.glass-map-card', 
+        { y: 100, opacity: 0, filter: 'blur(10px)' },
+        { y: 0, opacity: 1, filter: 'blur(0px)', duration: 1.2, ease: 'power2.out' }
+    );
+    
+    locationAnim.fromTo('.map-frame', 
+        { opacity: 0, scale: 0.95 },
+        { opacity: 1, scale: 1, duration: 0.8, ease: 'power2.out' },
+        '-=0.6'
+    );
+    
+    locationAnim.fromTo('.btn-action-gold', 
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: 'back.out(1.5)' },
+        '-=0.4'
+    );
+
+    // SECTION GIFT ANIMATIONS
+    const giftAnim = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.section-gift',
+            start: 'top 70%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse'
+        }
+    });
+    
+    giftAnim.fromTo('.atm-card:nth-child(1)', 
+        { rotationY: -15, rotationX: 10, opacity: 0, y: 50 },
+        { rotationY: 0, rotationX: 0, opacity: 1, y: 0, duration: 1, ease: 'power2.out' }
+    );
+    
+    giftAnim.fromTo('.atm-card:nth-child(2)', 
+        { rotationY: 15, rotationX: 10, opacity: 0, y: 50 },
+        { rotationY: 0, rotationX: 0, opacity: 1, y: 0, duration: 1, ease: 'power2.out' },
+        '-=0.7'
+    );
+    
+    // Card shine effect on hover
+    document.querySelectorAll('.atm-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            gsap.to(card.querySelector('.card-shine'), {
+                x: '100%',
+                duration: 0.6,
+                ease: 'power2.out'
+            });
         });
-      },
-      () => {
-        commentList.innerHTML =
-          "<p style='text-align: center; opacity: 0.7;'>Gagal memuat ucapan. Silakan refresh halaman.</p>";
-      }
+        
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card.querySelector('.card-shine'), {
+                x: '-100%',
+                duration: 0.6,
+                ease: 'power2.out'
+            });
+        });
+    });
+    
+    // Card numbers typewriter effect
+    giftAnim.fromTo('.card-number', 
+        { opacity: 0, scale: 0.8 },
+        { opacity: 1, scale: 1, duration: 0.8, stagger: 0.2, ease: 'power2.out' },
+        '-=0.5'
     );
-}
-
-// Create Comment HTML (dengan timestamp di-comment)
-function createCommentHTML(data, index) {
-  let attendanceLabel = "";
-  let attendanceClass = "";
-
-  if (data.kehadiran === "present") {
-    attendanceLabel = "Hadir";
-    attendanceClass = "present";
-  } else if (data.kehadan === "notpresent") {
-    attendanceLabel = "Tidak Hadir";
-    attendanceClass = "not-present";
-  } else {
-    attendanceLabel = "Masih Ragu";
-    attendanceClass = "not-sure";
-  }
-
-  // timestampStr tidak lagi digunakan
-  /*
-  let timestampStr = "Baru saja";
-  if (data.timestamp && typeof data.timestamp.toDate === "function") {
-    ...
-  }
-  */
-
-  return `
-    <div class="comment-item" data-delay="${index * 100}">
-      <div class="comment-header">
-        <h4>${data.nama}</h4>
-        <span class="attendance-badge ${attendanceClass}">${attendanceLabel}</span>
-      </div>
-      <p>${data.ucapan}</p>
-    </div>
-  `;
-}
-
-// =================================== //
-// UTILITY FUNCTIONS
-// =================================== //
-
-// Simple music toggle function
-function toggleMusic(weddingMusic, musicToggle) {
-  if (weddingMusic.paused) {
-    weddingMusic.play();
-    musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
-  } else {
-    weddingMusic.pause();
-    musicToggle.innerHTML = '<i class="fas fa-music"></i>';
-  }
-}
-
-// Safe animation function dengan error handling
-function safeAnimation(target, vars) {
-  if (typeof gsap === "undefined") {
-    return;
-  }
-
-  try {
-    if (!target) {
-      return;
-    }
-    if (target instanceof NodeList || Array.isArray(target)) {
-      if (target.length === 0) {
-        return;
-      }
-    }
-    gsap.to(target, vars);
-  } catch (error) {
-    // console.warn("Animation error:", error, target, vars);
-  }
-}
-
-// Initialize dengan error handling
-try {
-  if (document.readyState === "loading") {
-    document.addEventListener(
-      "DOMContentLoaded",
-      initializePremiumFeatures
+    
+    // Copy buttons pulse
+    giftAnim.fromTo('.btn-copy-text', 
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'back.out(1.7)' },
+        '-=0.3'
     );
-  } else {
-    initializePremiumFeatures();
-  }
-} catch (error) {
-  const cover = document.getElementById("cover");
-  const mainContent = document.getElementById("mainContent");
-  if (cover) cover.style.display = "none";
-  if (mainContent) mainContent.style.display = "block";
+
+    // SECTION RSVP ANIMATIONS
+    const rsvpAnim = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.section-rsvp',
+            start: 'top 65%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse'
+        }
+    });
+    
+    rsvpAnim.fromTo('.glass-form-card', 
+        { x: -100, opacity: 0 },
+        { x: 0, opacity: 1, duration: 1, ease: 'power2.out' }
+    );
+    
+    rsvpAnim.fromTo('.glass-comments-card', 
+        { x: 100, opacity: 0 },
+        { x: 0, opacity: 1, duration: 1, ease: 'power2.out' },
+        '-=0.8'
+    );
+    
+    // Form inputs stagger
+    rsvpAnim.fromTo('.form-group', 
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: 'power2.out' },
+        '-=0.6'
+    );
+    
+    // Magnetic button effect
+    const kirimBtn = document.querySelector('.btn-kirim');
+    if (kirimBtn) {
+        kirimBtn.addEventListener('mousemove', (e) => {
+            const rect = kirimBtn.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            gsap.to(kirimBtn, {
+                x: (x - rect.width / 2) * 0.1,
+                y: (y - rect.height / 2) * 0.1,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        });
+        
+        kirimBtn.addEventListener('mouseleave', () => {
+            gsap.to(kirimBtn, {
+                x: 0,
+                y: 0,
+                duration: 0.6,
+                ease: 'elastic.out(1, 0.5)'
+            });
+        });
+    }
+    
+    // Comment items animation
+    const commentsList = document.getElementById('comments-list');
+    if (commentsList) {
+        // Observe new comment additions
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                mutation.addedNodes.forEach((node) => {
+                    if (node.nodeType === 1 && node.classList.contains('comment-item')) {
+                        gsap.fromTo(node, 
+                            { y: 30, opacity: 0 },
+                            { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' }
+                        );
+                    }
+                });
+            });
+        });
+        
+        observer.observe(commentsList, { childList: true });
+    }
+
+    // SECTION FOOTER ANIMATIONS
+    const footerAnim = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.footer-section',
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse'
+        }
+    });
+    
+    footerAnim.fromTo('.glass-footer-content', 
+        { scale: 0.8, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 1.2, ease: 'back.out(1.4)' }
+    );
+    
+    footerAnim.fromTo('.closing-text', 
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1, ease: 'power2.out' },
+        '-=0.8'
+    );
+    
+    footerAnim.fromTo('.closing-signature', 
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.8, ease: 'bounce.out' },
+        '-=0.5'
+    );
+    
+    footerAnim.fromTo('.copyright', 
+        { opacity: 0 },
+        { opacity: 1, duration: 0.6, ease: 'power2.out' },
+        '-=0.3'
+    );
+
+    // Enhanced scroll smoothing with navbar offset
+    gsap.utils.toArray('section').forEach(section => {
+        ScrollTrigger.create({
+            trigger: section,
+            start: 'top 70%',
+            end: 'bottom 30%',
+            onEnter: () => {
+                // Update navbar active state
+                const id = section.getAttribute('id');
+                const navItem = document.querySelector(`.nav-item[href="#${id}"]`);
+                if (navItem) {
+                    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+                    navItem.classList.add('active');
+                }
+            },
+            onEnterBack: () => {
+                const id = section.getAttribute('id');
+                const navItem = document.querySelector(`.nav-item[href="#${id}"]`);
+                if (navItem) {
+                    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+                    navItem.classList.add('active');
+                }
+            }
+        });
+    });
 }
+
+// Mobile optimization - simpler animations
+function optimizeForMobile() {
+    if (window.innerWidth < 768) {
+        // Reduce complexity for mobile
+        gsap.defaults({ duration: 0.8 });
+    }
+}
+
+// Initialize animations when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Wait for AOS to initialize first
+    setTimeout(() => {
+        optimizeForMobile();
+        // Don't initialize GSAP here - wait for bukaUndangan()
+    }, 1000);
+});
+
+// Re-initialize on window resize (with debounce)
+let resizeTimeout;
+window.addEventListener('resize', function() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+        initPremiumAnimations();
+    }, 250);
+});
